@@ -1,0 +1,24 @@
+.Piano {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.Piano .KeyButtonLastNote {
+    color: greenyellow;
+    background-color: cadetblue;
+}
+
+.Piano .KeyButtonActive,
+.Piano .KeyButton:active {
+    color: green;
+    background-color: greenyellow;
+}
+
+.Piano .KeyButton {
+    height: 100%;
+}
+
+.Piano .Piano-TableColumn {
+    height: auto;
+}

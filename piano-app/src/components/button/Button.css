@@ -1,0 +1,28 @@
+.Button {
+    font-family: monospace;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.ButtonReverse {
+    color: black;
+    background-color: white;
+}
+
+.Button:active {
+    color: greenyellow;
+    background-color: green;
+}
+
+.Button input {
+    display: none;
+}
+
+.ButtonSelected {
+    color: greenyellow;
+    background-color: green;
+}

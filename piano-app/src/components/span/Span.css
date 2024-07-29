@@ -1,0 +1,9 @@
+.Span {
+    font-family: monospace;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}

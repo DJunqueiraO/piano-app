@@ -1,0 +1,10 @@
+.CharButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CharButton span {
+  background-color: white;
+  color: black;
+}

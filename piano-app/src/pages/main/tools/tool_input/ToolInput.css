@@ -1,0 +1,12 @@
+.ToolInput {
+    margin-right: .5em;
+    display: flex;
+}
+
+.ToolInput span {
+    margin-right: 10px;
+}
+
+.ToolInput .Input {
+    min-width: 3em;
+}

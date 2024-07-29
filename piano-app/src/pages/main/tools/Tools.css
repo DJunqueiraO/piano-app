@@ -1,0 +1,37 @@
+.Tools {
+    overflow: hidden;
+    background-color: black;
+    width: 100%;
+    display: flex;
+    overflow: auto;
+}
+
+.Select {
+    width: 100%;
+}
+
+.Tool {
+    width: 100%;
+}
+
+.Tools .Tools-GridLine {
+    align-items: center;
+    justify-content: center;
+}
+
+.Tools .Tools-GridLine:first-child {
+    width: auto;
+    padding-right: 10px;
+    max-width: 50%;
+}
+
+.Tools Input,
+.ModInput,
+Button {
+    width: 100%;
+}
+
+.Tools .FileButton {
+    width: 10px;
+    margin-inline: 0;
+}

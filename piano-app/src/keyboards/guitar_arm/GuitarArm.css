@@ -1,0 +1,15 @@
+.GuitarArm {
+  background-color: brown;
+  color: white;
+  border-right: 1px solid darkslategray;
+}
+
+.GuitarArmFletMarker {
+  background-color: beige;
+  color: black;
+}
+
+.GuitarArmCapotasto {
+  background-color: black;
+  color: white;
+}

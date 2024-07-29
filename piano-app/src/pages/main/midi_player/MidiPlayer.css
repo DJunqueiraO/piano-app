@@ -1,0 +1,23 @@
+.MidiPlayer {
+  display: flex;
+  background-color: purple;
+  overflow: auto;
+}
+
+.MidiPlayerDownloadTabButton {
+  margin-inline: 5px;
+}
+
+.MidiPlayer .Button,
+.MidiPlayer .Span {
+  padding-inline: 5px;
+  width: auto;
+}
+
+#InputFile {
+  display: none;
+}
+
+.MidiPlayer .Label {
+  width: 100%;
+}

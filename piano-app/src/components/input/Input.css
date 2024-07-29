@@ -1,0 +1,12 @@
+.Input {
+    font-family: monospace;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+}
+
+.Input::-webkit-inner-spin-button {
+    color: white;
+    background-color: red;
+}
