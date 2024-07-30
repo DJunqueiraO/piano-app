@@ -3,6 +3,8 @@
 # dependencies
 /piano-app/node_modules
 /piano-app/.pnp
+/.venv
+/.idea
 .pnp.js
 
 # testing
