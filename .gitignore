@@ -1,18 +1,18 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/piano-app/node_modules
-/piano-app/.pnp
+/deploy/node_modules
+/deploy/.pnp
 .venv
 .idea
 .pnp.js
 
 # testing
-/piano-app/coverage
+/deploy/coverage
 
 # production
-/piano-app/build
-/piano-app/deploy
+/deploy/build
+/deploy/deploy
 
 # misc
 .DS_Store

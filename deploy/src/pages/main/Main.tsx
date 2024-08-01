@@ -4,7 +4,7 @@ import './Main.css'
 import { useStateAsObject } from "../../utils/Utils";
 import { Div } from "../../components/Components";
 import { Tools } from "./tools/Tools";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Note, NoteProps } from "../../models/Models";
 import { MidiPlayer } from "./midi_player/MidiPlayer";
 import { KeyboardParameters } from "../../keyboards/Keyboards";
@@ -34,17 +34,35 @@ export function Main() {
     const velocity = useStateAsObject<number>(keyboard_parameters.velocity)
     const current_note = useStateAsObject<number>(keyboard_parameters.current_note || 0)
 
-    const note_props: NoteProps = {
-        play_notes: play_notes,
-        upper: upper,
-        volume: volume,
-        duration: duration,
-        instrument: instrument,
-        play_mode: play_mode,
-        keyboard: keyboard,
-        velocity: velocity,
-        current_note: current_note
-    }
+    // The 'note_props' object makes the dependencies of useEffect Hook (at line 58) change on every render. To fix this, wrap the initialization of 'note_props' in its own useMemo() Hook.eslintreact-hooks/exhaustive-deps
+    // const note_props: NoteProps = {
+    //     play_notes: play_notes,
+    //     upper: upper,
+    //     volume: volume,
+    //     duration: duration,
+    //     instrument: instrument,
+    //     play_mode: play_mode,
+    //     keyboard: keyboard,
+    //     velocity: velocity,
+    //     current_note: current_note
+    // }
+
+    const note_props: NoteProps = useMemo(
+        () => {
+            return {
+                play_notes: play_notes,
+                upper: upper,
+                volume: volume,
+                duration: duration,
+                instrument: instrument,
+                play_mode: play_mode,
+                keyboard: keyboard,
+                velocity: velocity,
+                current_note: current_note
+            }
+        }, 
+        [play_notes, upper, volume, duration, instrument, play_mode, keyboard, velocity, current_note]
+    )
 
     useEffect(
         () => {
@@ -55,7 +73,7 @@ export function Main() {
                 )
             )
         },
-        [upper, volume, duration, instrument, play_mode, keyboard, play_notes, velocity]
+        [note_props]
     )
 
     return (
