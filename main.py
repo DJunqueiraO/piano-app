@@ -2,6 +2,7 @@ import webview
 from webview.dom import DOMEventHandler
 import os
 from bs4 import BeautifulSoup
+from threading import Thread
 
 
 class Index:
@@ -21,8 +22,11 @@ class Index:
         return self.get_beautifulsoup().find('title').text
 
 def bind(window: webview.Window):
-    print(window.dom.document.events.click)
-    window.dom.document.events.click += lambda e: print('e')
+
+    def on_click(event):
+        print('e')
+
+    window.dom.document.events.click += on_click
 
 if __name__ == '__main__':
 
