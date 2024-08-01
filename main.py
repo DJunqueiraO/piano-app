@@ -26,7 +26,7 @@ def bind(window: webview.Window):
     def on_click(event):
         print('e')
 
-    window.dom.document.events.click += on_click
+    window.dom.window.events.click += on_click
 
 if __name__ == '__main__':
 
