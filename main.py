@@ -1,4 +1,5 @@
 import webview
+from webview.dom import DOMEventHandler
 import os
 from bs4 import BeautifulSoup
 
@@ -19,18 +20,25 @@ class Index:
     def get_title(self) -> str:
         return self.get_beautifulsoup().find('title').text
 
+def bind(window: webview.Window):
+    print(window.dom.document.events.click)
+    window.dom.document.events.click += lambda e: print('e')
 
 if __name__ == '__main__':
 
-    url = 'piano-app/build/index.html'
+    url = 'deploy/build/index.html'
 
     index = Index(url)
 
-    webview.create_window(
+    window = webview.create_window(
         title=index.get_title(),
-        url=url
+        url=url,
+        maximized=True
     )
+
     webview.start(
+        bind,
+        window,
         private_mode=False
     )
 
