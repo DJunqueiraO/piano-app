@@ -11,14 +11,19 @@ export type KeyButtonProps = (
 export function KeyButton(props: KeyButtonProps) {
 
     const onChildren = () => {
-        return props.children === 'undefinedNaN'? '' : props.children
-    }
-
-    const on_style = () => {
-        return {...props.style,
-
+        if(
+            `${props.children}`.includes('undefined')
+        ) {
+            return ''
         }
+        return props.children
     }
+
+    // const on_style = () => {
+    //     return {...props.style,
+
+    //     }
+    // }
 
     const on_point_style = () => (
         {
@@ -37,7 +42,7 @@ export function KeyButton(props: KeyButtonProps) {
         <button 
             {...props}
             className={on_class_name()}
-            style={on_style()}
+            // style={on_style()}
             onClick={props.onClick}>
             <span
                 {...props.span_props}/>

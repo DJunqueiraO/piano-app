@@ -12,5 +12,6 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
 )
 
 export const DefaultVertical: Keyboard = {
-  keys: keyboard_vertical.keys.map(on_map)
+  keys: keyboard_vertical.keys.map(on_map),
+  notes: keyboard_vertical.notes
 }

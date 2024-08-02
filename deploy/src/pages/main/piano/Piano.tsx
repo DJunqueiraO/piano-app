@@ -7,7 +7,10 @@ import { useEffect } from 'react'
 import { Note, NoteProps } from '../../../models/Models'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 import { Keyboards } from '../../../keyboards/Keyboards'
-import { notes, play_modes } from '../../../assets/Assets'
+import { 
+    // notes, 
+    play_modes
+} from '../../../assets/Assets'
 import { AnimateKeyButton } from './animate_key_button/AnimateKeyButton'
 import { ClearButtons } from './clear_buttons/ClearButtons'
 
@@ -44,6 +47,7 @@ export function Piano(props: PianoProps) {
             if(props.play_mode.get() === play_modes[1]) {
                 audioContext.get().wait(
                     {
+                        keyboard: keyboard,
                         props: props,
                         current_note: props.current_note.get()
                     }
@@ -52,6 +56,7 @@ export function Piano(props: PianoProps) {
             if(props.play_mode.get() === play_modes[2]) {
                 audioContext.get().wait(
                     {
+                        keyboard: keyboard,
                         props: props,
                         current_note: props.current_note.get(),
                         muted: true
@@ -103,6 +108,7 @@ export function Piano(props: PianoProps) {
 
         const current_tab_keys = audioContext.get()?.wait(
             {
+                keyboard: keyboard,
                 props: props,
                 current_note: props.current_note.get(),
                 muted: true
@@ -137,6 +143,8 @@ export function Piano(props: PianoProps) {
                 keyboard.get()?.keys?.map(
                     line => line.map(
                         (key_button_props: KeyButtonProps, index) => { 
+
+                            const notes = keyboard.get().notes
 
                             const note = (
                                 parseInt(notes[`${key_button_props.children}` as keyof typeof notes]) ||

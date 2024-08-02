@@ -14,8 +14,8 @@ export class KeyboardParameters {
   constructor(
     props?: NoteProps
   ) {
-    this.upper = props?.upper.get() || 35
-    this.volume = props?.volume.get() || 20
+    this.upper = props?.upper.get() || 0
+    this.volume = props?.volume.get() || 0
     this.duration = props?.duration.get() || 3
     this.instrument = props?.instrument.get() || 0
     this.play_mode = props?.play_mode.get() || 'auto_play'

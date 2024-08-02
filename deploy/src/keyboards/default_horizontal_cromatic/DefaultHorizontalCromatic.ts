@@ -1,8 +1,8 @@
-import keyboard_horizontal from '../../assets/keyboard_horizontal.json'
+import keyboard_horizontal_cromatic from '../../assets/keyboard_horizontal_cromatic.json'
 import key_codes from '../../assets/key_codes.json'
 import { KeyButtonProps } from '../../components/Components'
 import { Keyboard } from '../Keyboards'
-import './DefaultHorizontal.css'
+import './DefaultHorizontalCromatic.css'
 
 const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   column => {
@@ -18,7 +18,7 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   }
 )
 
-export const DefaultHorizontal: Keyboard = {
-  keys: keyboard_horizontal.keys.map(on_map),
-  notes: keyboard_horizontal.notes
+export const DefaultHorizontalCromatic: Keyboard = {
+  keys: keyboard_horizontal_cromatic.keys.map(on_map),
+  notes: keyboard_horizontal_cromatic.notes
 }

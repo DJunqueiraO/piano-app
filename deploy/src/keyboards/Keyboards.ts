@@ -1,4 +1,8 @@
+import { keyboards } from "../assets/Assets"
+
 import { DefaultHorizontal } from "./default_horizontal/DefaultHorizontal"
+
+import { DefaultHorizontalCromatic } from "./default_horizontal_cromatic/DefaultHorizontalCromatic"
 
 import { DefaultVertical } from "./default_vertical/DefaultVertical"
 
@@ -11,6 +15,7 @@ export { type Keyboard } from "./keyboard/Keyboard"
 export class Keyboards {
 
   static default_horizontal = "Keyboard Horizontal"
+  static default_horizontal_cromatic = "Keyboard Horizontal Cromatic"
   static default_vertical = "Keyboard Vertical"
   static guitar_arm = "Guitar Arm"
 
@@ -20,6 +25,8 @@ export class Keyboards {
         return DefaultHorizontal
       case Keyboards.default_vertical:
         return DefaultVertical
+      case Keyboards.default_horizontal_cromatic:
+        return DefaultHorizontalCromatic
       case Keyboards.guitar_arm:
         return new GuitarArm()
       default:
