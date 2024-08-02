@@ -1,9 +1,6 @@
 import { Note, NoteProps } from '../../models/Models'
 import { Keyboard, Keyboards } from '../../keyboards/Keyboards'
-import { 
-    // notes,
-    instruments
-} from '../../assets/Assets'
+import { instruments } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
 import { UseStateObject } from '../Utils'

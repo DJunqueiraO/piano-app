@@ -19,12 +19,6 @@ export function KeyButton(props: KeyButtonProps) {
         return props.children
     }
 
-    // const on_style = () => {
-    //     return {...props.style,
-
-    //     }
-    // }
-
     const on_point_style = () => (
         {
             backgroundColor: Note.get_color(`${onChildren()}`.slice(0, -1))
@@ -42,7 +36,6 @@ export function KeyButton(props: KeyButtonProps) {
         <button 
             {...props}
             className={on_class_name()}
-            // style={on_style()}
             onClick={props.onClick}>
             <span
                 {...props.span_props}/>

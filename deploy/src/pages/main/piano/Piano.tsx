@@ -8,7 +8,6 @@ import { Note, NoteProps } from '../../../models/Models'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 import { Keyboards } from '../../../keyboards/Keyboards'
 import { 
-    // notes, 
     play_modes
 } from '../../../assets/Assets'
 import { AnimateKeyButton } from './animate_key_button/AnimateKeyButton'
