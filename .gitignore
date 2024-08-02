@@ -12,7 +12,7 @@
 
 # production
 /deploy/build
-/deploy/deploy
+/deploy/firebase
 
 # misc
 .DS_Store
