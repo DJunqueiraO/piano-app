@@ -27,13 +27,16 @@ const on_map: (column: number, column_index: number) => KeyButtonProps = (
 export class GuitarArm implements Keyboard {
   
   keys: KeyButtonProps[][]
+  notes: Record<string, string>
 
   constructor() {
     const start_note = [24, 19, 15, 10, 5, 0]
-    this.keys = new Array(6).fill(null).map(
+    const keys: number[][] = new Array(6).fill(null).map(
       (row, row_index) => new Array(25).fill(null).map(
         (_, column_index) => (column_index + 40 + start_note[row_index])
       )
-    ).map(row => row.map(on_map))
+    )
+    this.keys = keys.map(row => row.map(on_map))
+    this.notes = {}
   }
 }

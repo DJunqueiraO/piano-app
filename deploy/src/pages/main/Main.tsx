@@ -34,19 +34,6 @@ export function Main() {
     const velocity = useStateAsObject<number>(keyboard_parameters.velocity)
     const current_note = useStateAsObject<number>(keyboard_parameters.current_note || 0)
 
-    // The 'note_props' object makes the dependencies of useEffect Hook (at line 58) change on every render. To fix this, wrap the initialization of 'note_props' in its own useMemo() Hook.eslintreact-hooks/exhaustive-deps
-    // const note_props: NoteProps = {
-    //     play_notes: play_notes,
-    //     upper: upper,
-    //     volume: volume,
-    //     duration: duration,
-    //     instrument: instrument,
-    //     play_mode: play_mode,
-    //     keyboard: keyboard,
-    //     velocity: velocity,
-    //     current_note: current_note
-    // }
-
     const note_props: NoteProps = useMemo(
         () => {
             return {
@@ -61,7 +48,17 @@ export function Main() {
                 current_note: current_note
             }
         }, 
-        [play_notes, upper, volume, duration, instrument, play_mode, keyboard, velocity, current_note]
+        [
+            play_notes, 
+            upper, 
+            volume, 
+            duration, 
+            instrument, 
+            play_mode, 
+            keyboard, 
+            velocity, 
+            current_note
+        ]
     )
 
     useEffect(
