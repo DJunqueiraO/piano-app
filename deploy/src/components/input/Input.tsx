@@ -13,7 +13,7 @@ export type InputProps = (
 )
 
 export function Input(props: InputProps) {
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const on_change = (event: ChangeEvent<HTMLInputElement>) => {
         if(props.onChange) props.onChange(event)
         let next: number | string
         if(`${props.type}` === 'number') {
@@ -28,7 +28,7 @@ export function Input(props: InputProps) {
         props.state?.set(next)
     }
 
-    const onShowPlaceHolderHandler = () => {
+    const on_place_holder = () => {
         const value = props.state
         if(value && props.onShowPlaceHolder) {
             return `${props.onShowPlaceHolder(value.get())}`
@@ -38,10 +38,10 @@ export function Input(props: InputProps) {
 
     return (
         <input 
-            placeholder={onShowPlaceHolderHandler()}
+            placeholder={on_place_holder()}
             value={props.state?.get()}
             {...props}
-            onChange={onChangeHandler}
+            onChange={on_change}
             className={`Input ${props.className || ''}`}/>
     )
 }

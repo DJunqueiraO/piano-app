@@ -6,11 +6,12 @@
     overflow: auto;
 }
 
-.Select {
+.Tools .Select {
     width: 100%;
+    min-width: 9em;
 }
 
-.Tool {
+.Tools .Tool {
     width: 100%;
 }
 

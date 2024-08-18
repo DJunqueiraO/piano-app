@@ -4,8 +4,8 @@ import { midiToJson, UseStateObject } from '../../../utils/Utils'
 import play_modes from '../../../assets/play_modes.json'
 import './MidiPlayer.css'
 import { Keyboards } from '../../../keyboards/Keyboards'
-import { MidiPlayerVelocityInput } from './midi_player_velocity_input/MidiPlayerVelocityInput'
 import { strings } from '../../../assets/Assets'
+import { MidiPlayerInput } from './midi_player_input/MidiPlayerInput'
 
 type MidiPlayerProps = DivProps & NoteProps & {
   play_notes: UseStateObject<Note[]>
@@ -77,7 +77,10 @@ export function MidiPlayer(props: MidiPlayerProps) {
         onClick={on_download_tab}>
         {`${strings.en.download} ${strings.en.tab}`}
       </Button>
-      <MidiPlayerVelocityInput 
+      <MidiPlayerInput 
+        velocity={props.current_note}/>
+      <MidiPlayerInput 
+        step={0.1}
         velocity={props.velocity}/>
       {
         play_modes.map((mode, index) => (

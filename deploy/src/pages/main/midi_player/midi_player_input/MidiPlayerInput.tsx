@@ -7,25 +7,22 @@ import {
 } from "../../../../components/Components"
 import { UseStateObject } from "../../../../utils/Utils"
 
-import './MidiPlayerVelocityInput.css'
+import './MidiPlayerInput.css'
 
-type MidiPlayerVelocityInput = React.HTMLAttributes<HTMLDivElement> & {
+type MidiPlayerInputProps = React.HTMLAttributes<HTMLDivElement> & {
   velocity: UseStateObject<number>
+  step?: number
 }
 
-export function MidiPlayerVelocityInput(props: MidiPlayerVelocityInput) {
-
-  const on_step = () => (0.1)
-  const on_change = () => window.location.reload()
+export function MidiPlayerInput(props: MidiPlayerInputProps) {
 
   return (
-    <Div className='MidiPlayerVelocityInputDiv'>
+    <Div className='MidiPlayerInputDiv'>
       <Span>x</Span>
       <Input
-        step={on_step()}
+        step={props.step}
         value={props.velocity.get()}
         onChange={event => {
-          on_change()
           props.velocity.set(parseFloat(event.target.value))
         }}
         type='number'
@@ -33,13 +30,13 @@ export function MidiPlayerVelocityInput(props: MidiPlayerVelocityInput) {
         max={9}
         style={{width: '3em'}}/>
       <PlusButton 
-        onClick={on_change} 
         state={props.velocity} 
-        step={on_step()}/>
+        step={props.step}
+        />
       <MinusButton 
-        onClick={on_change} 
         state={props.velocity} 
-        step={on_step()}/>
+        step={props.step}
+        />
     </Div>
   )
 }

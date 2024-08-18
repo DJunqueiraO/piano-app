@@ -1,4 +1,4 @@
-.MidiPlayerVelocityInputDiv {
+.MidiPlayerInputDiv {
   width: auto;
   display: flex;
   align-items: center;
@@ -6,7 +6,7 @@
   background-color: black;
 }
 
-.MidiPlayerVelocityInputDiv .Input,
-.MidiPlayerVelocityInputDiv .Button {
+.MidiPlayerInputDiv .Input,
+.MidiPlayerInputDiv .Button {
   height: 100%;
 }

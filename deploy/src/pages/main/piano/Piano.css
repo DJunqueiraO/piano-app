@@ -17,6 +17,7 @@
 
 .Piano .KeyButton {
     height: 100%;
+    min-width: 5em;
 }
 
 .Piano .Piano-TableColumn {
