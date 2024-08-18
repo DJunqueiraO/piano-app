@@ -24,7 +24,8 @@ class Index:
 def bind(window: webview.Window):
 
     def on_click(event):
-        print('e')
+        # print('e')
+        pass
 
     window.dom.window.events.click += on_click
 
