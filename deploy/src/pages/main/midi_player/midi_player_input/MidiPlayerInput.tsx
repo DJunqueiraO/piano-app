@@ -5,36 +5,52 @@ import {
   PlusButton, 
   Span 
 } from "../../../../components/Components"
+import { Keyboards } from "../../../../keyboards/Keyboards"
 import { UseStateObject } from "../../../../utils/Utils"
+import { ClearButtons } from "../../piano/clear_buttons/ClearButtons"
 
 import './MidiPlayerInput.css'
 
 type MidiPlayerInputProps = React.HTMLAttributes<HTMLDivElement> & {
-  velocity: UseStateObject<number>
+  state: UseStateObject<number>
   step?: number
+  onChange?: () => void
+  keyboard?: UseStateObject<string>
+  min?: number
+  max?: number
 }
 
 export function MidiPlayerInput(props: MidiPlayerInputProps) {
 
   return (
     <Div className='MidiPlayerInputDiv'>
-      <Span>x</Span>
+      {props.children}
       <Input
         step={props.step}
-        value={props.velocity.get()}
+        value={props.state.get()}
         onChange={event => {
-          props.velocity.set(parseFloat(event.target.value))
+          window.location.reload()
+          if(props.onChange) props.onChange(event)
+          props.state.set(parseFloat(event.target.value))
         }}
         type='number'
-        min={0}
-        max={9}
+        min={props.min}
+        max={props.max}
         style={{width: '3em'}}/>
       <PlusButton 
-        state={props.velocity} 
+        onClick={event => {
+          window.location.reload()
+          if(props.onChange) props.onChange()
+        }}
+        state={props.state} 
         step={props.step}
         />
       <MinusButton 
-        state={props.velocity} 
+        onClick={event => {
+          window.location.reload()
+          if(props.onChange) props.onChange()
+        }}
+        state={props.state} 
         step={props.step}
         />
     </Div>

@@ -118,7 +118,7 @@ export class PianoAudioContext {
                 )
     
                 buttonCodes.forEach(buttonCode => {
-                    ClearButtons({keyboard: keyboard})
+                    ClearButtons({keyboard: keyboard.get()})
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
     

@@ -5,7 +5,7 @@ import { PianoProps } from "../Piano"
 import { KeyButtonProps } from "../../../../components/Components"
 
 interface ClearButtonsProps {
-  keyboard: UseStateObject<Keyboard>
+  keyboard: Keyboard
   active_class?: string
 }
 
@@ -15,7 +15,7 @@ export const ClearButtons = (
     active_class = 'KeyButtonActive'
   }: ClearButtonsProps
 ) => {
-  keyboard.get()?.keys
+  keyboard.keys
     .reduce(
         (rows: KeyButtonProps[][], columns: KeyButtonProps[]) => rows.concat(columns), []
     )

@@ -73,13 +73,13 @@ export function Piano(props: PianoProps) {
 
         if(event.ctrlKey && key === 'z') {
             props.current_note.set(Math.abs(props.current_note.get() - 1))
-            ClearButtons({keyboard: keyboard})
+            ClearButtons({keyboard: keyboard.get()})
             return
         }
 
         if(key === ' ' || (event.ctrlKey && key === 'y')) {
             props.current_note.set(props.current_note.get() + 1)
-            ClearButtons({keyboard: keyboard})
+            ClearButtons({keyboard: keyboard.get()})
             return
         }
 
@@ -95,7 +95,7 @@ export function Piano(props: PianoProps) {
             return
         }
 
-        ClearButtons({keyboard: keyboard})
+        ClearButtons({keyboard: keyboard.get()})
         AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
 
         if(
@@ -121,7 +121,7 @@ export function Piano(props: PianoProps) {
             )
         )) {
             props.current_note.set(props.current_note.get() + 1)
-            ClearButtons({keyboard: keyboard})
+            ClearButtons({keyboard: keyboard.get()})
         }
     }
 

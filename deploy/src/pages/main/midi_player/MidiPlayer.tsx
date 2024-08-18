@@ -78,10 +78,17 @@ export function MidiPlayer(props: MidiPlayerProps) {
         {`${strings.en.download} ${strings.en.tab}`}
       </Button>
       <MidiPlayerInput 
-        velocity={props.current_note}/>
-      <MidiPlayerInput 
         step={0.1}
-        velocity={props.velocity}/>
+        min={0}
+        max={9}
+        state={props.velocity}>
+        <Span>x</Span>
+      </MidiPlayerInput>
+      <MidiPlayerInput 
+        keyboard={props.keyboard}
+        state={props.current_note}>
+        <Span>&gt;</Span>
+      </MidiPlayerInput>
       {
         play_modes.map((mode, index) => (
           <Button
