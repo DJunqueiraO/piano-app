@@ -7,7 +7,7 @@ import { UseStateObject } from '../Utils'
 
 export type WaitProps = {
     props: NoteProps,
-    current_note: number,
+    // current_note: number,
     keyboard: UseStateObject<Keyboard>
     muted?: boolean,
     active_class?: string,
@@ -17,6 +17,7 @@ export class PianoAudioContext {
 
     audio_context: AudioContext
     static animation_frame = 0
+    static current_note = 0
 
     constructor() {
         this.audio_context = new window.AudioContext()
@@ -29,7 +30,6 @@ export class PianoAudioContext {
     wait = (
         {
             props,
-            current_note,
             active_class,
             keyboard,
             muted = false
@@ -38,9 +38,9 @@ export class PianoAudioContext {
         
         const play_notes = props.play_notes?.get()?.filter(note => note.type === 'noteOn') || []
 
-        if (current_note >= play_notes.length) {return}
+        if (PianoAudioContext.current_note >= play_notes.length) {return}
         
-        const current_tab_note = play_notes[current_note] || null
+        const current_tab_note = play_notes[PianoAudioContext.current_note] || null
         const current_tab_number = (
             (current_tab_note?.noteNumber || 0) - props.upper.get()
         )
@@ -102,7 +102,7 @@ export class PianoAudioContext {
             const playNextNote = (index: number) => {
 
                 if (index >= play_notes.length) {return}
-    
+
                 const upper = props.upper?.get()
                 const note = play_notes[index]
                 const noteAbsolute = note.noteNumber - upper
@@ -135,12 +135,19 @@ export class PianoAudioContext {
                         Note.get_frequency(note.noteNumber), 
                         props
                     )
-                    PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(index + 1))
+                    PianoAudioContext.animation_frame = (
+                        requestAnimationFrame(() => playNextNote(index + 1))
+                    )
                 } else {
-                    PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(index))
+                    PianoAudioContext.animation_frame = (
+                        requestAnimationFrame(() => playNextNote(index))
+                    )
                 }
+                PianoAudioContext.current_note = index
             }
-            PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(0))
+            PianoAudioContext.animation_frame = (
+                requestAnimationFrame(() => playNextNote(0))
+            )
         }
     }
 

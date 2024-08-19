@@ -10,5 +10,5 @@ export interface NoteProps {
   play_mode: UseStateObject<PlayMode>
   keyboard: UseStateObject<string>
   velocity: UseStateObject<number>
-  current_note: UseStateObject<number>
+  // current_note: UseStateObject<number>
 }

@@ -27,7 +27,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
           }
         }
     }
-    props.current_note.set(0)
+    PianoAudioContext.current_note = 0
   }
 
   const on_download_tab = () => {
@@ -85,35 +85,37 @@ export function MidiPlayer(props: MidiPlayerProps) {
         state={props.velocity}>
         <Span>x</Span>
       </MidiPlayerInput>
-      <MidiPlayerInput 
+      {/* <MidiPlayerInput 
         keyboard={props.keyboard}
         state={props.current_note}>
         <Span>&gt;</Span>
-      </MidiPlayerInput>
+      </MidiPlayerInput> */}
       {
-        play_modes.map((mode: PlayMode, index) => (
+        play_modes.map((mode: PlayMode, index: number) => (
           <Button
             dangerouslySetInnerHTML={{__html: mode.inner_html}}
             key={index}
             selected={props.play_mode.get().name === mode.name}
             onClick={() => {
-              let next_note = props.current_note.get()
+              let next_note = PianoAudioContext.current_note
               ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
               PianoAudioContext.cancel_animation_frame()
               switch(mode.name) {
               case 'stop':
-                props.current_note.set(0)
+                PianoAudioContext.current_note = 0
                 break
               case 'next':
                 next_note += 1
-                props.current_note.set(next_note)
-                return
+                PianoAudioContext.current_note = next_note
+                mode = {...mode, current_note: next_note}
+                break
               case 'back':
                 next_note -= 1
                 if(next_note >= 0) {
-                  props.current_note.set(next_note)
+                  PianoAudioContext.current_note = next_note
                 }
-                return
+                mode = {...mode, current_note: next_note}
+                break
               }
               props.play_mode.set(mode)
             }}/>

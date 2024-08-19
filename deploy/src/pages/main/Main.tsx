@@ -32,7 +32,7 @@ export function Main() {
     const play_mode = useStateAsObject<PlayMode>(keyboard_parameters.play_mode)
     const keyboard = useStateAsObject<string>(keyboard_parameters.keyboard)
     const velocity = useStateAsObject<number>(keyboard_parameters.velocity)
-    const current_note = useStateAsObject<number>(keyboard_parameters.current_note || 0)
+    // const current_note = useStateAsObject<number>(keyboard_parameters.current_note || 0)
 
     const note_props: NoteProps = useMemo(
         () => {
@@ -45,7 +45,7 @@ export function Main() {
                 play_mode: play_mode,
                 keyboard: keyboard,
                 velocity: velocity,
-                current_note: current_note
+                // current_note: current_note
             }
         }, 
         [
@@ -57,7 +57,7 @@ export function Main() {
             play_mode, 
             keyboard, 
             velocity, 
-            current_note
+            // current_note
         ]
     )
 

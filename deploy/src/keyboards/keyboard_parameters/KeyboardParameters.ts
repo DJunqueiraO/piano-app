@@ -1,3 +1,4 @@
+import { play_modes } from "../../assets/Assets"
 import { Note, NoteProps, PlayMode } from "../../models/Models"
 
 export class KeyboardParameters {
@@ -9,7 +10,7 @@ export class KeyboardParameters {
   keyboard: string
   play_notes: Note[]
   velocity: number
-  current_note: number
+  // current_note: number
 
   constructor(
     props?: NoteProps
@@ -18,10 +19,10 @@ export class KeyboardParameters {
     this.volume = props?.volume.get() || 0
     this.duration = props?.duration.get() || 3
     this.instrument = props?.instrument.get() || 0
-    this.play_mode = props?.play_mode.get() || 'auto_play'
+    this.play_mode = props?.play_mode.get() || play_modes[0]
     this.keyboard = props?.keyboard.get() || 'default'
     this.play_notes = props?.play_notes?.get() || []
     this.velocity = props?.velocity.get() || 1
-    this.current_note = props?.current_note.get() || 0
+    // this.current_note = props?.current_note.get() || 0
   }
 }
