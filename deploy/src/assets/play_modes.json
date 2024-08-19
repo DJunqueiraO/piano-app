@@ -1,6 +1,8 @@
 [
-  "&#9654;&#xFE0F;",
-  "&#9208;&#xFE0F;",
-  "&#x1F507;",
-  "&#9209;&#xFE0F;"
+  {"name": "back", "inner_html": "&#9194;&#xFE0F;"},
+  {"name": "play", "inner_html": "&#9654;&#xFE0F;"},
+  {"name": "pause", "inner_html": "&#9208;&#xFE0F;"},
+  {"name": "next", "inner_html": "&#9193;&#xFE0F;"},
+  {"name": "mute", "inner_html": "&#x1F507;"},
+  {"name": "stop", "inner_html": "&#9209;&#xFE0F;"}
 ]

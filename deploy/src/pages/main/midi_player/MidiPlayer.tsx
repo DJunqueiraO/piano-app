@@ -1,11 +1,13 @@
 import { Button, Div, DivProps, Input, Label, MinusButton, PlusButton, Span } from '../../../components/Components'
-import { Note, NoteProps } from '../../../models/Models'
+import { Note, NoteProps, PlayMode } from '../../../models/Models'
 import { midiToJson, UseStateObject } from '../../../utils/Utils'
 import play_modes from '../../../assets/play_modes.json'
 import './MidiPlayer.css'
 import { Keyboards } from '../../../keyboards/Keyboards'
 import { strings } from '../../../assets/Assets'
 import { MidiPlayerInput } from './midi_player_input/MidiPlayerInput'
+import { ClearButtons } from '../piano/clear_buttons/ClearButtons'
+import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 
 type MidiPlayerProps = DivProps & NoteProps & {
   play_notes: UseStateObject<Note[]>
@@ -14,7 +16,6 @@ type MidiPlayerProps = DivProps & NoteProps & {
 export function MidiPlayer(props: MidiPlayerProps) {
 
   const on_file_change = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    window.location.reload()
     const files = event.target.files
     if(files) {
         const file = files[0]
@@ -90,15 +91,29 @@ export function MidiPlayer(props: MidiPlayerProps) {
         <Span>&gt;</Span>
       </MidiPlayerInput>
       {
-        play_modes.map((mode, index) => (
+        play_modes.map((mode: PlayMode, index) => (
           <Button
-            dangerouslySetInnerHTML={{__html: mode}}
+            dangerouslySetInnerHTML={{__html: mode.inner_html}}
             key={index}
-            selected={props.play_mode.get() === mode}
+            selected={props.play_mode.get().name === mode.name}
             onClick={() => {
-              window.location.reload()
-              if(index === 3) {
+              let next_note = props.current_note.get()
+              ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+              PianoAudioContext.cancel_animation_frame()
+              switch(mode.name) {
+              case 'stop':
                 props.current_note.set(0)
+                break
+              case 'next':
+                next_note += 1
+                props.current_note.set(next_note)
+                return
+              case 'back':
+                next_note -= 1
+                if(next_note >= 0) {
+                  props.current_note.set(next_note)
+                }
+                return
               }
               props.play_mode.set(mode)
             }}/>

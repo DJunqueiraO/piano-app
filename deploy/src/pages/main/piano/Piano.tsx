@@ -24,7 +24,7 @@ export function Piano(props: PianoProps) {
         () => {
             const handleVisibilityChange = () => {
                 if (document.visibilityState === 'visible') {
-                    window.location.reload()
+                    PianoAudioContext.cancel_animation_frame()
                 }
             }
             document.addEventListener('visibilitychange', handleVisibilityChange)
@@ -37,13 +37,13 @@ export function Piano(props: PianoProps) {
 
     useEffect(
         () => {
-            if(props.play_mode.get() === play_modes[0]) {
+            if(props.play_mode.get().name === 'play') {
                 audioContext.get().auto_play(
                     props, 
                     keyboard
                 )
             } 
-            if(props.play_mode.get() === play_modes[1]) {
+            if(props.play_mode.get().name === 'pause') {
                 audioContext.get().wait(
                     {
                         keyboard: keyboard,
@@ -52,7 +52,7 @@ export function Piano(props: PianoProps) {
                     }
                 )
             }
-            if(props.play_mode.get() === play_modes[2]) {
+            if(props.play_mode.get().name === 'mute') {
                 audioContext.get().wait(
                     {
                         keyboard: keyboard,
@@ -99,8 +99,8 @@ export function Piano(props: PianoProps) {
         AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
 
         if(
-            props.play_mode.get() === play_modes[1] ||
-            props.play_mode.get() === play_modes[3]
+            props.play_mode.get().name === 'pause' ||
+            props.play_mode.get().name === 'stop'
         ) {
             return
         }

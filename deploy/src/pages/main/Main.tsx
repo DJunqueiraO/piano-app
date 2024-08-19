@@ -5,7 +5,7 @@ import { useStateAsObject } from "../../utils/Utils";
 import { Div } from "../../components/Components";
 import { Tools } from "./tools/Tools";
 import { useEffect, useMemo } from "react";
-import { Note, NoteProps } from "../../models/Models";
+import { Note, NoteProps, PlayMode } from "../../models/Models";
 import { MidiPlayer } from "./midi_player/MidiPlayer";
 import { KeyboardParameters } from "../../keyboards/Keyboards";
 
@@ -29,7 +29,7 @@ export function Main() {
     const duration = useStateAsObject<number>(keyboard_parameters.duration)
     const instrument = useStateAsObject<number>(keyboard_parameters.instrument)
     const play_notes = useStateAsObject<Note[]>(keyboard_parameters.play_notes)
-    const play_mode = useStateAsObject<string>(keyboard_parameters.play_mode)
+    const play_mode = useStateAsObject<PlayMode>(keyboard_parameters.play_mode)
     const keyboard = useStateAsObject<string>(keyboard_parameters.keyboard)
     const velocity = useStateAsObject<number>(keyboard_parameters.velocity)
     const current_note = useStateAsObject<number>(keyboard_parameters.current_note || 0)

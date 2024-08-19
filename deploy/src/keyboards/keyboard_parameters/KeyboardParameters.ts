@@ -1,11 +1,11 @@
-import { Note, NoteProps } from "../../models/Models"
+import { Note, NoteProps, PlayMode } from "../../models/Models"
 
 export class KeyboardParameters {
   upper: number
   volume: number
   duration: number
   instrument: number
-  play_mode: string
+  play_mode: PlayMode
   keyboard: string
   play_notes: Note[]
   velocity: number

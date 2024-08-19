@@ -16,9 +16,14 @@ export type WaitProps = {
 export class PianoAudioContext {
 
     audio_context: AudioContext
+    static animation_frame = 0
 
     constructor() {
         this.audio_context = new window.AudioContext()
+    }
+
+    static cancel_animation_frame = () => {
+        cancelAnimationFrame(PianoAudioContext.animation_frame)
     }
 
     wait = (
@@ -130,12 +135,12 @@ export class PianoAudioContext {
                         Note.get_frequency(note.noteNumber), 
                         props
                     )
-                    requestAnimationFrame(() => playNextNote(index + 1))
+                    PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(index + 1))
                 } else {
-                    requestAnimationFrame(() => playNextNote(index))
+                    PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(index))
                 }
             }
-            requestAnimationFrame(() => playNextNote(0))
+            PianoAudioContext.animation_frame = requestAnimationFrame(() => playNextNote(0))
         }
     }
 

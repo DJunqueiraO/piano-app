@@ -1,5 +1,5 @@
 import { UseStateObject } from "../../utils/Utils"
-import { Note } from "../Models"
+import { Note, PlayMode } from "../Models"
 
 export interface NoteProps {
   play_notes?: UseStateObject<Array<Note>>
@@ -7,7 +7,7 @@ export interface NoteProps {
   volume: UseStateObject<number>
   duration: UseStateObject<number>
   instrument: UseStateObject<number>
-  play_mode: UseStateObject<string>
+  play_mode: UseStateObject<PlayMode>
   keyboard: UseStateObject<string>
   velocity: UseStateObject<number>
   current_note: UseStateObject<number>

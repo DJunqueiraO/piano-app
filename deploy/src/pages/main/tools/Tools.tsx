@@ -6,6 +6,7 @@ import instruments from '../../../assets/instruments.json'
 import keyboards from '../../../assets/keyboards.json'
 import { NoteProps } from '../../../models/Models'
 import { strings } from '../../../assets/Assets'
+import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 
 type ToolsProps = DivProps & NoteProps
 
@@ -50,7 +51,7 @@ export function Tools(props: ToolsProps) {
                             props.keyboard.set(
                                 event.target.value
                             )
-                            window.location.reload()
+                            PianoAudioContext.cancel_animation_frame()
                         }}>
                         {
                             keyboards.map(
@@ -75,7 +76,7 @@ export function Tools(props: ToolsProps) {
                             props.instrument.set(
                                 instruments.find(instrument => instrument.name === event.target.value)?.id || 0
                             )
-                            window.location.reload()
+                            PianoAudioContext.cancel_animation_frame()
                         }}>
                         {
                             instruments.map(
