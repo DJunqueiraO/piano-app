@@ -10,7 +10,6 @@ export class KeyboardParameters {
   keyboard: string
   play_notes: Note[]
   velocity: number
-  // current_note: number
 
   constructor(
     props?: NoteProps
@@ -23,6 +22,5 @@ export class KeyboardParameters {
     this.keyboard = props?.keyboard.get() || 'default'
     this.play_notes = props?.play_notes?.get() || []
     this.velocity = props?.velocity.get() || 1
-    // this.current_note = props?.current_note.get() || 0
   }
 }
