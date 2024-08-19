@@ -8,7 +8,7 @@ import { UseStateObject } from '../Utils'
 export type WaitProps = {
     props: NoteProps,
     // current_note: number,
-    keyboard: UseStateObject<Keyboard>
+    // keyboard: UseStateObject<Keyboard>
     muted?: boolean,
     active_class?: string,
 }
@@ -31,7 +31,7 @@ export class PianoAudioContext {
         {
             props,
             active_class,
-            keyboard,
+            // keyboard,
             muted = false
         }: WaitProps
     ) => {
@@ -44,7 +44,7 @@ export class PianoAudioContext {
         const current_tab_number = (
             (current_tab_note?.noteNumber || 0) - props.upper.get()
         )
-        const notes = keyboard.get()?.notes
+        const notes = Keyboards.get(props.keyboard.get()).notes
         let current_tab_keys = (
             props.keyboard.get() === Keyboards.guitar_arm?
             [`${current_tab_number}`]
@@ -84,7 +84,7 @@ export class PianoAudioContext {
 
     auto_play = (
         props: NoteProps,
-        keyboard: UseStateObject<Keyboard>
+        // keyboard: UseStateObject<Keyboard>
     ) => {
 
         let startTime = performance.now()
@@ -106,7 +106,7 @@ export class PianoAudioContext {
                 const upper = props.upper?.get()
                 const note = play_notes[index]
                 const noteAbsolute = note.noteNumber - upper
-                const notes = keyboard.get()?.notes
+                const notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
                     props.keyboard.get() === Keyboards.guitar_arm?
                     [`${noteAbsolute}`]
@@ -123,7 +123,7 @@ export class PianoAudioContext {
                 )
     
                 buttonCodes.forEach(buttonCode => {
-                    ClearButtons({keyboard: keyboard.get()})
+                    ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
     
