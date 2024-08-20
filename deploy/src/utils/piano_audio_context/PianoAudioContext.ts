@@ -1,6 +1,6 @@
 import { Note, NoteProps } from '../../models/Models'
 import { Keyboards } from '../../keyboards/Keyboards'
-import { instruments } from '../../assets/Assets'
+import { instruments, play_modes } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
 
@@ -17,7 +17,7 @@ export class PianoAudioContext {
     static current_note = 0
 
     constructor() {
-        
+
         this.audio_context = new window.AudioContext()
     }
 
@@ -101,18 +101,18 @@ export class PianoAudioContext {
             play_notes.slice(PianoAudioContext.current_note)
         )
 
-        const play_notes_in_time: Note[] = (
+        const play_notes_in_time_sliced_up: Note[] = (
             play_notes_sliced_up.map(note => ({...note, time: note.time - play_notes_sliced_up[0].time}))
         )
 
-        if(play_notes_in_time) {
+        if(play_notes_in_time_sliced_up) {
             const playNextNote = (index: number) => {
 
                 if (PianoAudioContext.current_note >= play_notes.length) {return}
                 PianoAudioContext.current_note = index + play_notes_sliced_down.length
 
                 const upper = props.upper?.get()
-                const note = play_notes_in_time[index]
+                const note = play_notes_in_time_sliced_up[index]
                 if(!note.noteNumber) {return}
                 const noteAbsolute = note.noteNumber - upper
                 const notes = Keyboards.get(props.keyboard.get()).notes
