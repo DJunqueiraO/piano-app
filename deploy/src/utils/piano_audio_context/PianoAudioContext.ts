@@ -1,14 +1,11 @@
 import { Note, NoteProps } from '../../models/Models'
-import { Keyboard, Keyboards } from '../../keyboards/Keyboards'
+import { Keyboards } from '../../keyboards/Keyboards'
 import { instruments } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
-import { UseStateObject } from '../Utils'
 
 export type WaitProps = {
     props: NoteProps,
-    // current_note: number,
-    // keyboard: UseStateObject<Keyboard>
     muted?: boolean,
     active_class?: string,
 }
@@ -31,7 +28,6 @@ export class PianoAudioContext {
         {
             props,
             active_class,
-            // keyboard,
             muted = false
         }: WaitProps
     ) => {
@@ -82,12 +78,10 @@ export class PianoAudioContext {
         return current_tab_keys
     }
 
-    auto_play = (
-        props: NoteProps,
-        // keyboard: UseStateObject<Keyboard>
-    ) => {
+    auto_play = (props: NoteProps) => {
 
         let startTime = performance.now()
+
         const play_notes = (
             (
                 props.play_notes
@@ -98,13 +92,26 @@ export class PianoAudioContext {
             []
         )
 
-        if(play_notes) {
+        const play_notes_sliced_down = (
+            play_notes.slice(0, PianoAudioContext.current_note)
+        )
+
+        const play_notes_sliced_up = (
+            play_notes.slice(PianoAudioContext.current_note)
+        )
+
+        const play_notes_in_time: Note[] = (
+            play_notes_sliced_up.map(note => ({...note, time: note.time - play_notes_sliced_up[0].time}))
+        )
+
+        if(play_notes_in_time) {
             const playNextNote = (index: number) => {
 
-                if (index >= play_notes.length) {return}
+                if (PianoAudioContext.current_note >= play_notes_in_time.length) {return}
+                PianoAudioContext.current_note = index + play_notes_sliced_down.length + 1
 
                 const upper = props.upper?.get()
-                const note = play_notes[index]
+                const note = play_notes_in_time[index]
                 const noteAbsolute = note.noteNumber - upper
                 const notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
@@ -129,7 +136,7 @@ export class PianoAudioContext {
     
                 const currentTime = performance.now()
                 const elapsed = currentTime - startTime
-    
+
                 if (elapsed >= note.time) {
                     this.play(
                         Note.get_frequency(note.noteNumber), 
@@ -143,7 +150,6 @@ export class PianoAudioContext {
                         requestAnimationFrame(() => playNextNote(index))
                     )
                 }
-                PianoAudioContext.current_note = index
             }
             PianoAudioContext.animation_frame = (
                 requestAnimationFrame(() => playNextNote(0))

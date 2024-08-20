@@ -14,7 +14,6 @@ export type PianoProps = NoteProps
 
 export function Piano(props: PianoProps) {
 
-    // const keyboard = useStateAsObject(Keyboards.get(props.keyboard.get()))
     const audioContext = useStateAsObject(new PianoAudioContext())
 
     useEffect(
@@ -35,27 +34,18 @@ export function Piano(props: PianoProps) {
     useEffect(
         () => {
             if(props.play_mode.get().name === 'play') {
-                audioContext.get().auto_play(
-                    props, 
-                    // keyboard
-                )
+                audioContext.get().auto_play(props)
             } 
             if(
                 props.play_mode.get().name === 'pause' || 
                 props.play_mode.get().name === 'next' || 
                 props.play_mode.get().name === 'back'
             ) {
-                audioContext.get().wait(
-                    {
-                        // keyboard: keyboard,
-                        props: props
-                    }
-                )
+                audioContext.get().wait({props})
             }
             if(props.play_mode.get().name === 'mute') {
                 audioContext.get().wait(
                     {
-                        // keyboard: keyboard,
                         props: props,
                         muted: true
                     }
@@ -74,6 +64,9 @@ export function Piano(props: PianoProps) {
             PianoAudioContext.current_note = (
                 Math.abs(PianoAudioContext.current_note - 1)
             )
+            props.play_mode.set(
+                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
+            )
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
             return
         }
@@ -81,6 +74,9 @@ export function Piano(props: PianoProps) {
         if(key === ' ' || (event.ctrlKey && key === 'y')) {
             PianoAudioContext.current_note = (
                 PianoAudioContext.current_note + 1
+            )
+            props.play_mode.set(
+                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
             )
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
             return
@@ -110,7 +106,6 @@ export function Piano(props: PianoProps) {
 
         const current_tab_keys = audioContext.get()?.wait(
             {
-                // keyboard: keyboard,
                 props: props,
                 muted: true
             }
@@ -124,6 +119,9 @@ export function Piano(props: PianoProps) {
         )) {
             PianoAudioContext.current_note = (
                 PianoAudioContext.current_note + 1
+            )
+            props.play_mode.set(
+                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
             )
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
         }
