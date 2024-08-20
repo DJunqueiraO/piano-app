@@ -33,23 +33,40 @@ export class PianoAudioContext {
         }: WaitProps
     ) => {
         
-        const play_notes = props.play_notes?.get()?.filter(note => note.type === 'noteOn') || []
+        const play_notes = (
+            props.play_notes
+                ?.get()
+                ?.filter(note => note.type === 'noteOn')
+        ) || []
 
         if (PianoAudioContext.current_note >= play_notes.length) {return}
         
         const current_tab_note = play_notes[PianoAudioContext.current_note] || null
-        const current_tab_number = (
-            (current_tab_note?.noteNumber || 0) - props.upper.get()
+        const current_tab_notes = (
+            play_notes
+                .reduce(
+                    (notes: Note[], note: Note) => {
+                        if(
+                            note === current_tab_note || 
+                            note.time === current_tab_note.time
+                        ) {
+                            notes.push(note)
+                        }
+                        return notes
+                    },
+                    []
+                )
+                .map(note => ({...note, noteNumber: note.noteNumber - props.upper.get()}))
         )
         const notes = Keyboards.get(props.keyboard.get()).notes
         let current_tab_keys = (
             props.keyboard.get() === Keyboards.guitar_arm?
-            [`${current_tab_number}`]
+            current_tab_notes.map(note => note.noteNumber.toString())
             :
             Object.keys(notes).reduce(
                 ($0: string[], $1: string) => {
                     if(
-                        notes[$1 as keyof typeof notes] === current_tab_number.toString()
+                        current_tab_notes.some(note => notes[$1 as keyof typeof notes] === note.noteNumber.toString())
                     ) {
                         $0.push($1)
                     }
