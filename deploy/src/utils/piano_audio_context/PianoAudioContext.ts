@@ -17,6 +17,7 @@ export class PianoAudioContext {
     static current_note = 0
 
     constructor() {
+        
         this.audio_context = new window.AudioContext()
     }
 
@@ -107,11 +108,12 @@ export class PianoAudioContext {
         if(play_notes_in_time) {
             const playNextNote = (index: number) => {
 
-                if (PianoAudioContext.current_note >= play_notes_in_time.length) {return}
-                PianoAudioContext.current_note = index + play_notes_sliced_down.length + 1
+                if (PianoAudioContext.current_note >= play_notes.length) {return}
+                PianoAudioContext.current_note = index + play_notes_sliced_down.length
 
                 const upper = props.upper?.get()
                 const note = play_notes_in_time[index]
+                if(!note.noteNumber) {return}
                 const noteAbsolute = note.noteNumber - upper
                 const notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
