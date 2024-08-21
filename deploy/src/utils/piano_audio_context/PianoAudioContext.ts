@@ -129,6 +129,7 @@ export class PianoAudioContext {
                 PianoAudioContext.current_note = index + play_notes_sliced_down.length
 
                 const upper = props.upper?.get()
+                if(index >= play_notes_in_time_sliced_up.length) {return}
                 const note = play_notes_in_time_sliced_up[index]
                 const notes = (
                     play_notes_in_time_sliced_up
@@ -156,7 +157,16 @@ export class PianoAudioContext {
                     Object.keys(keyboard_notes).reduce(
                         (keys: string[], key: string) => {
                             if(
-                                notes.some(note => keyboard_notes[key as keyof typeof keyboard_notes] === note.noteNumber.toString())
+                                notes.some(
+                                    (note: Note) => {
+                                        const keyboard_note = (
+                                            keyboard_notes[key as keyof typeof keyboard_notes]
+                                        )
+                                        return (
+                                            keyboard_note === note.noteNumber.toString()
+                                        )
+                                    }
+                                )
                             ) {
                                 keys.push(key)
                             }

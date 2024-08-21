@@ -4,11 +4,12 @@ import {
 import { KeyButton, Grid, KeyButtonProps } from '../../../components/Components'
 import './Piano.css'
 import { useEffect } from 'react'
-import { Note, KeyboardProps } from '../../../models/Models'
+import { Note, KeyboardProps, PlayMode } from '../../../models/Models'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 import { Keyboards } from '../../../keyboards/Keyboards'
 import { AnimateKeyButton } from './animate_key_button/AnimateKeyButton'
 import { ClearButtons } from './clear_buttons/ClearButtons'
+import { play_modes } from '../../../assets/Assets'
 
 export type PianoProps = KeyboardProps
 
@@ -61,24 +62,28 @@ export function Piano(props: PianoProps) {
         const {key, code} = event
         const upper = props.upper.get() || 0
 
-        if(event.ctrlKey && key === 'z') {
-            PianoAudioContext.current_note = (
-                Math.abs(PianoAudioContext.current_note - 1)
-            )
-            props.play_mode.set(
-                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
-            )
+        if(event.ctrlKey && (key === 'z' || code === 'ArrowLeft')) {
+            PianoAudioContext.current_note -= 1
+            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
             return
         }
 
-        if(key === ' ' || (event.ctrlKey && key === 'y')) {
-            PianoAudioContext.current_note = (
-                PianoAudioContext.current_note + 1
-            )
-            props.play_mode.set(
-                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
-            )
+        if(key === ' ' || code === 'Space') {
+            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'play')))
+            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            return
+        }
+
+        if(event.ctrlKey && key === 's') {
+            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'pause')))
+            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            return
+        }
+
+        if(event.ctrlKey && (key === 'y' || code === 'ArrowRight')) {
+            PianoAudioContext.current_note += 1
+            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
             return
         }

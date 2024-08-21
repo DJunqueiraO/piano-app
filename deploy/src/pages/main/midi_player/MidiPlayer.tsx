@@ -104,7 +104,9 @@ export function MidiPlayer(props: MidiPlayerProps) {
               ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
               switch(mode.name) {
               case 'stop':
-                PianoAudioContext.current_note = 0
+                next_note = 0
+                PianoAudioContext.current_note = next_note
+                mode = {...mode, current_note: next_note}
                 break
               case 'next':
                 next_note += 1
