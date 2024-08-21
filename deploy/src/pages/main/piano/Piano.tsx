@@ -4,41 +4,56 @@ import {
 import { KeyButton, Grid, KeyButtonProps } from '../../../components/Components'
 import './Piano.css'
 import { useEffect } from 'react'
-import { Note, NoteProps } from '../../../models/Models'
+import { Note, KeyboardProps } from '../../../models/Models'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 import { Keyboards } from '../../../keyboards/Keyboards'
 import { AnimateKeyButton } from './animate_key_button/AnimateKeyButton'
 import { ClearButtons } from './clear_buttons/ClearButtons'
 
-export type PianoProps = NoteProps
+export type PianoProps = KeyboardProps
 
 export function Piano(props: PianoProps) {
 
     const audioContext = useStateAsObject(new PianoAudioContext())
 
+    const refresh = () => {
+        PianoAudioContext.cancel_animation_frame()
+        if((props.play_mode.get()?.name || '') === 'play') {
+            audioContext.get().auto_play(props)
+        } 
+        if(
+            (props.play_mode.get()?.name || '') === 'pause' || 
+            (props.play_mode.get()?.name || '') === 'next' || 
+            (props.play_mode.get()?.name || '') === 'back'
+        ) {
+            audioContext.get().wait({props})
+        }
+        if((props.play_mode.get()?.name || '') === 'mute') {
+            audioContext.get().wait(
+                {
+                    props: props,
+                    muted: true
+                }
+            )
+        }
+    }
+
     useEffect(
         () => {
-            PianoAudioContext.cancel_animation_frame()
-            if((props.play_mode.get()?.name || '') === 'play') {
-                audioContext.get().auto_play(props)
-            } 
-            if(
-                (props.play_mode.get()?.name || '') === 'pause' || 
-                (props.play_mode.get()?.name || '') === 'next' || 
-                (props.play_mode.get()?.name || '') === 'back'
-            ) {
-                audioContext.get().wait({props})
+            const handleVisibilityChange = () => {
+                if (document.visibilityState === 'visible') {
+                    refresh()
+                }
             }
-            if((props.play_mode.get()?.name || '') === 'mute') {
-                audioContext.get().wait(
-                    {
-                        props: props,
-                        muted: true
-                    }
-                )
+            document.addEventListener('visibilitychange', handleVisibilityChange)
+            return () => {
+                document.removeEventListener('visibilitychange', handleVisibilityChange)
             }
-        }
+        }, 
+        []
     )
+
+    useEffect(refresh)
 
     const key_button_on_key_down = function(event: React.KeyboardEvent) {
         event.preventDefault()

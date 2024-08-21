@@ -4,11 +4,11 @@ import './Tools.css'
 import { ToolInput } from './tool_input/ToolInput'
 import instruments from '../../../assets/instruments.json'
 import keyboards from '../../../assets/keyboards.json'
-import { NoteProps } from '../../../models/Models'
+import { KeyboardProps } from '../../../models/Models'
 import { strings } from '../../../assets/Assets'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 
-type ToolsProps = DivProps & NoteProps
+type ToolsProps = DivProps & KeyboardProps
 
 export function Tools(props: ToolsProps) {
 

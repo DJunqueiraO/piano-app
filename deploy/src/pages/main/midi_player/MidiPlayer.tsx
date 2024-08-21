@@ -1,5 +1,5 @@
 import { Button, Div, DivProps, Input, Label, MinusButton, PlusButton, Span } from '../../../components/Components'
-import { Note, NoteProps, PlayMode } from '../../../models/Models'
+import { Note, KeyboardProps, PlayMode } from '../../../models/Models'
 import { midiToJson, UseStateObject } from '../../../utils/Utils'
 import play_modes from '../../../assets/play_modes.json'
 import './MidiPlayer.css'
@@ -9,13 +9,15 @@ import { MidiPlayerInput } from './midi_player_input/MidiPlayerInput'
 import { ClearButtons } from '../piano/clear_buttons/ClearButtons'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 
-type MidiPlayerProps = DivProps & NoteProps & {
+type MidiPlayerProps = DivProps & KeyboardProps & {
   play_notes: UseStateObject<Note[]>
 }
 
 export function MidiPlayer(props: MidiPlayerProps) {
 
   const on_file_change = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    PianoAudioContext.current_note = 0
+    PianoAudioContext.cancel_animation_frame()
     const files = event.target.files
     if(files) {
         const file = files[0]
@@ -27,35 +29,36 @@ export function MidiPlayer(props: MidiPlayerProps) {
           }
         }
     }
-    PianoAudioContext.current_note = 0
   }
 
   const on_download_tab = () => {
 
     const a = document.createElement('a')
-    const play_notes = props.play_notes.get().filter(note => note.type === 'noteOn')
-    const notes_tab = (
-      play_notes
-        .reduce(
-          (notes: string[][], note: Note) => {
-            const time = note.time
-            notes.push(
-              play_notes
-                .filter(note => note.time === time)
-                .map(note => Note.get_character(note.noteNumber))
+    const play_notes = (
+      props.play_notes
+        ?.get()
+        ?.reduce(
+          (notes: Note[][], note: Note) => {
+            const time_notes = (
+              props.play_notes
+                ?.get()
+                ?.filter(note => note.type === 'noteOn')
+                ?.filter($0 => $0.time === note.time)
             )
+            if(!notes.some($0 => $0.some($1 => $1.time === note.time))) {
+              notes.push(time_notes)
+            }
             return notes
           },
           []
         )
-        .map($0 => $0.join('-'))
-        .join(' | ')
+        ?.map(notes => notes.map(note => Note.get_character(note.noteNumber)))
     )
-    const blob = new Blob([notes_tab], { type: 'application/json' })
+    const blob = new Blob([JSON.stringify(play_notes)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
 
     a.href = url
-    a.download = 'tab.txt'
+    a.download = 'tab.json'
     a.click()
     URL.revokeObjectURL(url)
   }

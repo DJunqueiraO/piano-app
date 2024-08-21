@@ -1,11 +1,11 @@
-import { Note, NoteProps } from '../../models/Models'
+import { Note, KeyboardProps } from '../../models/Models'
 import { Keyboards } from '../../keyboards/Keyboards'
 import { instruments, play_modes } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
 
 export type WaitProps = {
-    props: NoteProps,
+    props: KeyboardProps,
     muted?: boolean,
     active_class?: string,
 }
@@ -22,7 +22,6 @@ export class PianoAudioContext {
     }
 
     static cancel_animation_frame = () => {
-        PianoAudioContext.current_note = 0
         cancelAnimationFrame(PianoAudioContext.animation_frame)
     }
 
@@ -97,7 +96,7 @@ export class PianoAudioContext {
         return current_tab_keys
     }
 
-    auto_play = (props: NoteProps) => {
+    auto_play = (props: KeyboardProps) => {
 
         let startTime = performance.now()
 
@@ -197,7 +196,7 @@ export class PianoAudioContext {
 
     play = (
         frequency: number, 
-        props: NoteProps
+        props: KeyboardProps
     ) => {
         
         if (this.audio_context) {

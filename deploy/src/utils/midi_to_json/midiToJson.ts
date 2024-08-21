@@ -21,7 +21,7 @@ export const midiToJson = async (file: File) => {
       if (event.type === 'noteOn' || event.type === 'noteOff') {
         const timeInMilliseconds = (currentTime * tempo) / (ticksPerBeat * 1000)
         notes.push(
-          new Note(event, timeInMilliseconds)
+          Note.from_event(event, timeInMilliseconds)
         )
       }
     })

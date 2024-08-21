@@ -1,19 +1,37 @@
 import { MidiNoteOffEvent, MidiNoteOnEvent } from "midi-file"
 
+export interface NoteProps {
+  type: string
+  noteNumber: number
+  velocity: number
+  time: number
+}
+
 export class Note {
   type: 'noteOn' | 'noteOff'
   noteNumber: number
   velocity: number
   time: number
 
-  constructor(
+  constructor(props: NoteProps) {
+    this.type = props.type === 'noteOn' ? 'noteOn' : 'noteOff'
+    this.noteNumber = props.noteNumber
+    this.velocity = props.velocity
+    this.time = props.time
+  }
+
+  static from_event = function(
     event: MidiNoteOnEvent | MidiNoteOffEvent,
     time: number
   ) {
-    this.type = event.type
-    this.noteNumber = event.noteNumber
-    this.velocity = event.velocity
-    this.time = time
+    return new Note(
+      {
+        type: event.type,
+        noteNumber: event.noteNumber,
+        velocity: event.velocity,
+        time: time
+      }
+    )
   }
 
   static get_character = (n: number) => {
