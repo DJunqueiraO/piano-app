@@ -130,16 +130,34 @@ export class PianoAudioContext {
 
                 const upper = props.upper?.get()
                 const note = play_notes_in_time_sliced_up[index]
+                const notes = (
+                    play_notes_in_time_sliced_up
+                        .reduce(
+                            (notes: Note[], note: Note) => {
+                                if(
+                                    note === play_notes_in_time_sliced_up[index] ||
+                                    note.time === play_notes_in_time_sliced_up[index].time
+                                ) {
+                                    notes.push(note)
+                                }
+                                return notes
+                            },
+                            []
+                        )
+                        .map(note => ({...note, noteNumber: note.noteNumber - upper}))
+                )
                 if(!note.noteNumber) {return}
                 const noteAbsolute = note.noteNumber - upper
-                const notes = Keyboards.get(props.keyboard.get()).notes
+                const keyboard_notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
                     props.keyboard.get() === Keyboards.guitar_arm?
-                    [`${noteAbsolute}`]
+                    notes.map(note => note.noteNumber.toString())
                     :
-                    Object.keys(notes).reduce(
+                    Object.keys(keyboard_notes).reduce(
                         (keys: string[], key: string) => {
-                            if(notes[key as keyof typeof notes] === `${noteAbsolute}`) {
+                            if(
+                                notes.some(note => keyboard_notes[key as keyof typeof keyboard_notes] === note.noteNumber.toString())
+                            ) {
                                 keys.push(key)
                             }
                             return keys
@@ -148,8 +166,8 @@ export class PianoAudioContext {
                     )
                 )
     
+                ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                 buttonCodes.forEach(buttonCode => {
-                    ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
     
