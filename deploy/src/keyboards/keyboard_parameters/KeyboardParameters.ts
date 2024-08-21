@@ -1,4 +1,4 @@
-import { play_modes } from "../../assets/Assets"
+import { demo, play_modes } from "../../assets/Assets"
 import { Note, NoteProps, PlayMode } from "../../models/Models"
 
 export class KeyboardParameters {
@@ -20,7 +20,7 @@ export class KeyboardParameters {
     this.instrument = props?.instrument.get() || 0
     this.play_mode = props?.play_mode.get() || play_modes[0]
     this.keyboard = props?.keyboard.get() || 'default'
-    this.play_notes = props?.play_notes?.get() || []
+    this.play_notes = props?.play_notes?.get() || demo
     this.velocity = props?.velocity.get() || 1
   }
 }

@@ -71,12 +71,12 @@ export function MidiPlayer(props: MidiPlayerProps) {
         onChange={on_file_change}/>
       <Label 
         htmlFor="InputFile">
-        {`${strings.en.upload} ${strings.en.tab}`}
+        {`${strings.en.upload} ${strings.en.midi}`}
       </Label>
       <Button
         className='MidiPlayerDownloadTabButton'
         onClick={on_download_tab}>
-        {`${strings.en.download} ${strings.en.tab}`}
+        {`${strings.en.download} ${strings.en.tablature}`}
       </Button>
       <MidiPlayerInput 
         step={0.1}
@@ -99,7 +99,6 @@ export function MidiPlayer(props: MidiPlayerProps) {
             onClick={() => {
               let next_note = PianoAudioContext.current_note
               ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
-              PianoAudioContext.cancel_animation_frame()
               switch(mode.name) {
               case 'stop':
                 PianoAudioContext.current_note = 0

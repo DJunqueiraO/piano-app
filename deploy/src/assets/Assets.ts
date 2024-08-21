@@ -6,7 +6,9 @@ import keyboard_vertical_json from './keyboard_vertical.json'
 import keyboards_json from './keyboards.json'
 import play_modes_json from './play_modes.json'
 import strings_json from './strings.json'
+import demo_json from './demo.json'
 
+export const demo = demo_json
 export const instruments = instruments_json
 export const key_codes = key_codes_json
 export const keyboard_horizontal = keyboard_horizontal_json

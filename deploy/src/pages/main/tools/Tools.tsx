@@ -25,9 +25,9 @@ export function Tools(props: ToolsProps) {
                 }}>
                 <ToolInput 
                     className='Tool'
-                    input_props={{min: 0}}
+                    // input_props={{min: 0}}
                     state={props.upper}>
-                    {strings.en.upper}: 
+                    {strings.en.tone}: 
                 </ToolInput>
                 <ToolInput 
                     className='Tool'
@@ -51,7 +51,6 @@ export function Tools(props: ToolsProps) {
                             props.keyboard.set(
                                 event.target.value
                             )
-                            PianoAudioContext.cancel_animation_frame()
                         }}>
                         {
                             keyboards.map(
@@ -76,7 +75,6 @@ export function Tools(props: ToolsProps) {
                             props.instrument.set(
                                 instruments.find(instrument => instrument.name === event.target.value)?.id || 0
                             )
-                            PianoAudioContext.cancel_animation_frame()
                         }}>
                         {
                             instruments.map(

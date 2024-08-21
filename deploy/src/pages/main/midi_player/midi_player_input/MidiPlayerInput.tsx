@@ -2,13 +2,10 @@ import {
   Div, 
   Input, 
   MinusButton, 
-  PlusButton, 
-  Span 
+  PlusButton
 } from "../../../../components/Components"
-import { Keyboards } from "../../../../keyboards/Keyboards"
 import { PianoAudioContext } from "../../../../utils/piano_audio_context/PianoAudioContext"
 import { UseStateObject } from "../../../../utils/Utils"
-import { ClearButtons } from "../../piano/clear_buttons/ClearButtons"
 
 import './MidiPlayerInput.css'
 
@@ -30,7 +27,6 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
         step={props.step}
         value={props.state.get()}
         onChange={event => {
-          PianoAudioContext.cancel_animation_frame()
           if(props.onChange) props.onChange(event)
           props.state.set(parseFloat(event.target.value))
         }}
@@ -40,7 +36,6 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
         style={{width: '3em'}}/>
       <PlusButton 
         onClick={event => {
-          PianoAudioContext.cancel_animation_frame()
           if(props.onChange) props.onChange()
         }}
         state={props.state} 
@@ -48,7 +43,6 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
         />
       <MinusButton 
         onClick={event => {
-          PianoAudioContext.cancel_animation_frame()
           if(props.onChange) props.onChange()
         }}
         state={props.state} 

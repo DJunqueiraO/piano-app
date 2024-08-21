@@ -18,21 +18,7 @@ export function Piano(props: PianoProps) {
 
     useEffect(
         () => {
-            const handleVisibilityChange = () => {
-                if (document.visibilityState === 'visible') {
-                    PianoAudioContext.cancel_animation_frame()
-                }
-            }
-            document.addEventListener('visibilitychange', handleVisibilityChange)
-            return () => {
-                document.removeEventListener('visibilitychange', handleVisibilityChange)
-            }
-        }, 
-        []
-    )
-
-    useEffect(
-        () => {
+            PianoAudioContext.cancel_animation_frame()
             if(props.play_mode.get().name === 'play') {
                 audioContext.get().auto_play(props)
             } 

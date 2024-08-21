@@ -10,10 +10,6 @@ type ToolInputProps = React.HTMLAttributes<HTMLDivElement> & React.CSSProperties
 
 export function ToolInput(props: ToolInputProps) {
 
-    const on_change = () => {
-        PianoAudioContext.cancel_animation_frame()
-    }
-
     return (
         <Div
             {...props}
@@ -21,21 +17,12 @@ export function ToolInput(props: ToolInputProps) {
             <Span>{props.children}</Span>
             <Input 
                 state={props.state}
-                onChange={on_change}
                 max={9999} 
                 min={-9999} 
                 type="number"
                 {...props.input_props}/>
-            <PlusButton 
-                state={props.state}
-                onClick={() => {
-                    on_change()
-                }}/>
-            <MinusButton 
-                state={props.state}
-                onClick={() => {
-                    on_change()
-                }}/>
+            <PlusButton state={props.state}/>
+            <MinusButton state={props.state}/>
         </Div>
     )
 }

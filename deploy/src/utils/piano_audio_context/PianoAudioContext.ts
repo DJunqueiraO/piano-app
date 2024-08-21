@@ -22,6 +22,7 @@ export class PianoAudioContext {
     }
 
     static cancel_animation_frame = () => {
+        PianoAudioContext.current_note = 0
         cancelAnimationFrame(PianoAudioContext.animation_frame)
     }
 
