@@ -19,7 +19,7 @@ export function Main() {
                 JSON.stringify(new KeyboardParameters())
             )
         }
-        return JSON.parse(`${keyboard_parameters}`)
+        return JSON.parse(`${keyboard_parameters}`) || new KeyboardParameters()
     }
 
     const keyboard_parameters = get_keyboard_parameters()

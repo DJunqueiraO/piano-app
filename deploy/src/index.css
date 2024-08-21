@@ -4,15 +4,12 @@
   border: none;
   outline: none;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  scrollbar-width: none;
 }
 
 *::-webkit-scrollbar {
   width: 0;
   height: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 html,
@@ -25,4 +22,8 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
