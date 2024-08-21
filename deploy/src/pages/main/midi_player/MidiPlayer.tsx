@@ -95,7 +95,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
           <Button
             dangerouslySetInnerHTML={{__html: mode.inner_html}}
             key={index}
-            selected={props.play_mode.get().name === mode.name}
+            selected={(props.play_mode.get()?.name || '') === mode.name}
             onClick={() => {
               let next_note = PianoAudioContext.current_note
               ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})

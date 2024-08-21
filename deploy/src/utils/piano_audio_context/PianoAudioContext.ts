@@ -34,23 +34,40 @@ export class PianoAudioContext {
         }: WaitProps
     ) => {
         
-        const play_notes = props.play_notes?.get()?.filter(note => note.type === 'noteOn') || []
+        const play_notes = (
+            props.play_notes
+                ?.get()
+                ?.filter(note => note.type === 'noteOn')
+        ) || []
 
         if (PianoAudioContext.current_note >= play_notes.length) {return}
         
         const current_tab_note = play_notes[PianoAudioContext.current_note] || null
-        const current_tab_number = (
-            (current_tab_note?.noteNumber || 0) - props.upper.get()
+        const current_tab_notes = (
+            play_notes
+                .reduce(
+                    (notes: Note[], note: Note) => {
+                        if(
+                            note === current_tab_note || 
+                            note.time === current_tab_note.time
+                        ) {
+                            notes.push(note)
+                        }
+                        return notes
+                    },
+                    []
+                )
+                .map(note => ({...note, noteNumber: note.noteNumber - props.upper.get()}))
         )
         const notes = Keyboards.get(props.keyboard.get()).notes
         let current_tab_keys = (
             props.keyboard.get() === Keyboards.guitar_arm?
-            [`${current_tab_number}`]
+            current_tab_notes.map(note => note.noteNumber.toString())
             :
             Object.keys(notes).reduce(
                 ($0: string[], $1: string) => {
                     if(
-                        notes[$1 as keyof typeof notes] === current_tab_number.toString()
+                        current_tab_notes.some(note => notes[$1 as keyof typeof notes] === note.noteNumber.toString())
                     ) {
                         $0.push($1)
                     }
@@ -114,16 +131,34 @@ export class PianoAudioContext {
 
                 const upper = props.upper?.get()
                 const note = play_notes_in_time_sliced_up[index]
+                const notes = (
+                    play_notes_in_time_sliced_up
+                        .reduce(
+                            (notes: Note[], note: Note) => {
+                                if(
+                                    note === play_notes_in_time_sliced_up[index] ||
+                                    note.time === play_notes_in_time_sliced_up[index].time
+                                ) {
+                                    notes.push(note)
+                                }
+                                return notes
+                            },
+                            []
+                        )
+                        .map(note => ({...note, noteNumber: note.noteNumber - upper}))
+                )
                 if(!note.noteNumber) {return}
                 const noteAbsolute = note.noteNumber - upper
-                const notes = Keyboards.get(props.keyboard.get()).notes
+                const keyboard_notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
                     props.keyboard.get() === Keyboards.guitar_arm?
-                    [`${noteAbsolute}`]
+                    notes.map(note => note.noteNumber.toString())
                     :
-                    Object.keys(notes).reduce(
+                    Object.keys(keyboard_notes).reduce(
                         (keys: string[], key: string) => {
-                            if(notes[key as keyof typeof notes] === `${noteAbsolute}`) {
+                            if(
+                                notes.some(note => keyboard_notes[key as keyof typeof keyboard_notes] === note.noteNumber.toString())
+                            ) {
                                 keys.push(key)
                             }
                             return keys
@@ -132,8 +167,8 @@ export class PianoAudioContext {
                     )
                 )
     
+                ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                 buttonCodes.forEach(buttonCode => {
-                    ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
     
