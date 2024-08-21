@@ -27,11 +27,11 @@ export function Main() {
     const upper = useStateAsObject<number>(keyboard_parameters?.upper)
     const volume = useStateAsObject<number>(keyboard_parameters?.volume)
     const duration = useStateAsObject<number>(keyboard_parameters?.duration)
-    const instrument = useStateAsObject<number>(keyboard_parameters.instrument)
-    const play_notes = useStateAsObject<Note[]>(keyboard_parameters.play_notes)
-    const play_mode = useStateAsObject<PlayMode>(keyboard_parameters.play_mode)
-    const keyboard = useStateAsObject<string>(keyboard_parameters.keyboard)
-    const velocity = useStateAsObject<number>(keyboard_parameters.velocity)
+    const instrument = useStateAsObject<number>(keyboard_parameters?.instrument)
+    const play_notes = useStateAsObject<Note[]>(keyboard_parameters?.play_notes)
+    const play_mode = useStateAsObject<PlayMode>(keyboard_parameters?.play_mode)
+    const keyboard = useStateAsObject<string>(keyboard_parameters?.keyboard)
+    const velocity = useStateAsObject<number>(keyboard_parameters?.velocity)
 
     const note_props: NoteProps = useMemo(
         () => {

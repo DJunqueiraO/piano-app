@@ -11,6 +11,10 @@
   height: 0;
 }
 
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 html,
 body,
 #root {

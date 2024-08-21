@@ -33,17 +33,17 @@ export function Piano(props: PianoProps) {
 
     useEffect(
         () => {
-            if(props.play_mode.get().name === 'play') {
+            if((props.play_mode.get()?.name || '') === 'play') {
                 audioContext.get().auto_play(props)
             } 
             if(
-                props.play_mode.get().name === 'pause' || 
-                props.play_mode.get().name === 'next' || 
-                props.play_mode.get().name === 'back'
+                (props.play_mode.get()?.name || '') === 'pause' || 
+                (props.play_mode.get()?.name || '') === 'next' || 
+                (props.play_mode.get()?.name || '') === 'back'
             ) {
                 audioContext.get().wait({props})
             }
-            if(props.play_mode.get().name === 'mute') {
+            if((props.play_mode.get()?.name || '') === 'mute') {
                 audioContext.get().wait(
                     {
                         props: props,
@@ -98,8 +98,8 @@ export function Piano(props: PianoProps) {
         AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
 
         if(
-            props.play_mode.get().name === 'pause' ||
-            props.play_mode.get().name === 'stop'
+            (props.play_mode.get()?.name || '') === 'pause' ||
+            (props.play_mode.get()?.name || '') === 'stop'
         ) {
             return
         }
