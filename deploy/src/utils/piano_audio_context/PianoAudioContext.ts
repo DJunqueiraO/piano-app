@@ -17,7 +17,6 @@ export class PianoAudioContext {
     static current_note = 0
 
     constructor() {
-
         this.audio_context = new window.AudioContext()
     }
 
@@ -122,9 +121,7 @@ export class PianoAudioContext {
     }
 
     auto_play = (props: KeyboardProps) => {
-
         let startTime = performance.now()
-
         const play_notes = (
             (
                 props.play_notes
@@ -134,25 +131,19 @@ export class PianoAudioContext {
             ) || 
             []
         )
-
         const play_notes_sliced_down = (
             play_notes.slice(0, PianoAudioContext.current_note)
         )
-
         const play_notes_sliced_up = (
             play_notes.slice(PianoAudioContext.current_note)
         )
-
         const play_notes_in_time_sliced_up: Note[] = (
             play_notes_sliced_up.map(note => ({...note, time: note.time - play_notes_sliced_up[0].time}))
         )
-
         if(play_notes_in_time_sliced_up) {
             const playNextNote = (index: number) => {
-
                 if (PianoAudioContext.current_note >= play_notes.length) {return}
                 PianoAudioContext.current_note = index + play_notes_sliced_down.length
-
                 const upper = props.upper?.get()
                 if(index >= play_notes_in_time_sliced_up.length) {return}
                 const note = play_notes_in_time_sliced_up[index]
@@ -199,15 +190,12 @@ export class PianoAudioContext {
                         []
                     )
                 )
-    
                 ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
                 buttonCodes.forEach(buttonCode => {
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
-    
                 const currentTime = performance.now()
                 const elapsed = currentTime - startTime
-
                 if (elapsed >= note.time) {
                     this.play(
                         Note.get_frequency(note.noteNumber), 
@@ -232,14 +220,10 @@ export class PianoAudioContext {
         frequency: number, 
         props: KeyboardProps
     ) => {
-        
         if (this.audio_context) {
-
             const oscillator = this.audio_context.createOscillator()
             const instrumentObject = instruments[props.instrument.get()] || {}
-
             if (oscillator) {
-
                 if (!instrumentObject.value) {
                     oscillator.type = instrumentObject.name as OscillatorType;
                     } else {
@@ -251,26 +235,21 @@ export class PianoAudioContext {
                         oscillator.setPeriodicWave(customWave);
                     }
                 }
-
                 oscillator.frequency.setValueAtTime(
                     frequency,
                     this.audio_context.currentTime
                 )
-
                 const gainNode = this.audio_context.createGain()
-
                 gainNode.gain.setValueAtTime(
                     (props.volume.get() || 0) / 100,
                     this.audio_context.currentTime
                 )
-
                 gainNode.gain.exponentialRampToValueAtTime(
                     0.0001,
                     this.audio_context.currentTime + (
                         props.duration.get() || 0
                     )
                 )
-
                 oscillator.connect(gainNode)
                 gainNode.connect(this.audio_context.destination)
                 oscillator.start()
