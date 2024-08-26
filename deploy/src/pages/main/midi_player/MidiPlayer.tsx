@@ -8,6 +8,8 @@ import { strings } from '../../../assets/Assets'
 import { MidiPlayerInput } from './midi_player_input/MidiPlayerInput'
 import { ClearButtons } from '../piano/clear_buttons/ClearButtons'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
+import { PlayModeButton } from './play_mode_button/PlayModeButton'
+import { CurrentNoteInput } from './current_note_input/CurrentNoteInput'
 
 type MidiPlayerProps = DivProps & KeyboardProps & {
   play_notes: UseStateObject<Note[]>
@@ -107,15 +109,10 @@ export function MidiPlayer(props: MidiPlayerProps) {
         state={props.velocity}>
         <Span>x</Span>
       </MidiPlayerInput>
-      {/* <MidiPlayerInput 
-        keyboard={props.keyboard}
-        state={props.current_note}>
-        <Span>&gt;</Span>
-      </MidiPlayerInput> */}
+      <CurrentNoteInput/>
       {
         play_modes.map((mode: PlayMode, index: number) => (
-          <Button
-            style={{width: '4em'}}
+          <PlayModeButton
             dangerouslySetInnerHTML={{__html: mode.inner_html}}
             key={index}
             selected={(props.play_mode.get()?.name || '') === mode.name}

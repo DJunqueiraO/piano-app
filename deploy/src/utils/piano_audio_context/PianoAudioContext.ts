@@ -3,6 +3,7 @@ import { Keyboards } from '../../keyboards/Keyboards'
 import { instruments, play_modes } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
+import { CurrentNoteInput } from '../../pages/main/midi_player/current_note_input/CurrentNoteInput'
 
 export type WaitProps = {
     props: KeyboardProps,
@@ -36,6 +37,12 @@ export class PianoAudioContext {
     static decrement_current_note = () => {
         const current_note = PianoAudioContext.current_note
         return PianoAudioContext.current_note -= current_note > 0? 1 : 0
+    }
+
+    static set_current_note = (next_note: number) => {
+        const input: any = document.getElementsByClassName(CurrentNoteInput.name)[0]
+        input.value = next_note.toString()
+        return PianoAudioContext.current_note = next_note
     }
 
     static cancel_animation_frame = () => {
@@ -140,7 +147,8 @@ export class PianoAudioContext {
         if(play_notes_in_time_sliced_up) {
             const playNextNote = (index: number) => {
                 if (PianoAudioContext.current_note >= play_notes.length) {return}
-                PianoAudioContext.current_note = index + play_notes_sliced_down.length
+                // PianoAudioContext.current_note = index + play_notes_sliced_down.length
+                PianoAudioContext.set_current_note(index + play_notes_sliced_down.length)
                 const upper = props.upper?.get()
                 if(index >= play_notes_in_time_sliced_up.length) {return}
                 const note = play_notes_in_time_sliced_up[index]

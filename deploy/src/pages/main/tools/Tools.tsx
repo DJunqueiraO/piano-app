@@ -24,7 +24,6 @@ export function Tools(props: ToolsProps) {
                 }}>
                 <ToolInput 
                     className='Tool'
-                    // input_props={{min: 0}}
                     state={props.upper}>
                     {strings.en.tone}: 
                 </ToolInput>
