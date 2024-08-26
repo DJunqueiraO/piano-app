@@ -41,7 +41,7 @@ export class PianoAudioContext {
 
     static set_current_note = (next_note: number) => {
         const input: any = document.getElementsByClassName(CurrentNoteInput.name)[0]
-        input.value = next_note.toString()
+        input.value = next_note.toString() || '0'
         return PianoAudioContext.current_note = next_note
     }
 
