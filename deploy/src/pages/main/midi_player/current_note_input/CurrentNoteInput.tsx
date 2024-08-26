@@ -4,11 +4,7 @@ import { PianoAudioContext } from '../../../../utils/piano_audio_context/PianoAu
 import './CurrentNoteInput.css'
 import { useStateAsObject } from '../../../../utils/Utils'
 
-type CurrentNoteInputProps = InputProps & {
-
-}
-
-export function CurrentNoteInput(props: CurrentNoteInputProps) {
+export function CurrentNoteInput(props: InputProps) {
   const value = useStateAsObject(PianoAudioContext.current_note)
   return (
     <Input
