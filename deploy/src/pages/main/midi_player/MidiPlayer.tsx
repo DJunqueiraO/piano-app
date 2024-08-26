@@ -56,11 +56,30 @@ export function MidiPlayer(props: MidiPlayerProps) {
     )
     const blob = new Blob([JSON.stringify(play_notes)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
-
     a.href = url
     a.download = 'tab.json'
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  const play_mode_o_click = (mode: PlayMode) => {
+    let next_note = 0
+    ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+    switch(mode.name) {
+    case 'stop':
+      PianoAudioContext.current_note = next_note
+      mode = {...mode, current_note: next_note}
+      break
+    case 'next':
+      next_note = PianoAudioContext.increment_current_note(props?.play_notes?.get())
+      mode = {...mode, current_note: next_note}
+      break
+    case 'back':
+      next_note = PianoAudioContext.decrement_current_note()
+      mode = {...mode, current_note: next_note}
+      break
+    }
+    props.play_mode.set(mode)
   }
 
   return (
@@ -96,33 +115,11 @@ export function MidiPlayer(props: MidiPlayerProps) {
       {
         play_modes.map((mode: PlayMode, index: number) => (
           <Button
+            style={{width: '4em'}}
             dangerouslySetInnerHTML={{__html: mode.inner_html}}
             key={index}
             selected={(props.play_mode.get()?.name || '') === mode.name}
-            onClick={() => {
-              let next_note = PianoAudioContext.current_note
-              ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
-              switch(mode.name) {
-              case 'stop':
-                next_note = 0
-                PianoAudioContext.current_note = next_note
-                mode = {...mode, current_note: next_note}
-                break
-              case 'next':
-                next_note += 1
-                PianoAudioContext.current_note = next_note
-                mode = {...mode, current_note: next_note}
-                break
-              case 'back':
-                next_note -= 1
-                if(next_note >= 0) {
-                  PianoAudioContext.current_note = next_note
-                }
-                mode = {...mode, current_note: next_note}
-                break
-              }
-              props.play_mode.set(mode)
-            }}/>
+            onClick={() => play_mode_o_click(mode)}/>
         ))
       }
   </Div>

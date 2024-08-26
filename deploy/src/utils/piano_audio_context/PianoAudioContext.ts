@@ -21,6 +21,24 @@ export class PianoAudioContext {
         this.audio_context = new window.AudioContext()
     }
 
+    static increment_current_note = (play_notes?: Note[]) => {
+        const current_note = PianoAudioContext.current_note
+        return PianoAudioContext.current_note += (
+            current_note < (
+                play_notes?.filter(note => note.type === 'noteOn').length || 
+                0
+            ) - 1? 
+            1 
+            : 
+            0
+        )
+    }
+
+    static decrement_current_note = () => {
+        const current_note = PianoAudioContext.current_note
+        return PianoAudioContext.current_note -= current_note > 0? 1 : 0
+    }
+
     static cancel_animation_frame = () => {
         cancelAnimationFrame(PianoAudioContext.animation_frame)
     }
@@ -48,7 +66,7 @@ export class PianoAudioContext {
                     (notes: Note[], note: Note) => {
                         if(
                             note === current_tab_note || 
-                            note.time === current_tab_note.time
+                            note?.time === current_tab_note?.time
                         ) {
                             notes.push(note)
                         }
@@ -58,15 +76,22 @@ export class PianoAudioContext {
                 )
                 .map(note => ({...note, noteNumber: note.noteNumber - props.upper.get()}))
         )
-        const notes = Keyboards.get(props.keyboard.get()).notes
+        const keyboard_notes = Keyboards.get(props.keyboard.get()).notes
         let current_tab_keys = (
-            props.keyboard.get() === Keyboards.guitar_arm?
+            Object.values(keyboard_notes).length === 0?
             current_tab_notes.map(note => note.noteNumber.toString())
             :
-            Object.keys(notes).reduce(
+            Object.keys(keyboard_notes).reduce(
                 ($0: string[], $1: string) => {
                     if(
-                        current_tab_notes.some(note => notes[$1 as keyof typeof notes] === note.noteNumber.toString())
+                        current_tab_notes.some(
+                            note => {
+                                const keyboard_note_number = (
+                                    keyboard_notes[$1 as keyof typeof keyboard_notes]
+                                )
+                                return keyboard_note_number === note.noteNumber.toString()
+                            }
+                        )
                     ) {
                         $0.push($1)
                     }
@@ -148,10 +173,9 @@ export class PianoAudioContext {
                         .map(note => ({...note, noteNumber: note.noteNumber - upper}))
                 )
                 if(!note.noteNumber) {return}
-                const noteAbsolute = note.noteNumber - upper
                 const keyboard_notes = Keyboards.get(props.keyboard.get()).notes
                 const buttonCodes = (
-                    props.keyboard.get() === Keyboards.guitar_arm?
+                    Object.values(keyboard_notes).length === 0?
                     notes.map(note => note.noteNumber.toString())
                     :
                     Object.keys(keyboard_notes).reduce(

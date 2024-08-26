@@ -3,10 +3,9 @@ import { Div, DivProps, Option, Select, Span } from '../../../components/Compone
 import './Tools.css'
 import { ToolInput } from './tool_input/ToolInput'
 import instruments from '../../../assets/instruments.json'
-import keyboards from '../../../assets/keyboards.json'
 import { KeyboardProps } from '../../../models/Models'
 import { strings } from '../../../assets/Assets'
-import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
+import { Keyboards } from '../../../keyboards/Keyboards'
 
 type ToolsProps = DivProps & KeyboardProps
 
@@ -53,7 +52,7 @@ export function Tools(props: ToolsProps) {
                             )
                         }}>
                         {
-                            keyboards.map(
+                            Object.values(Keyboards).map(
                                 keyboard => (
                                     <Option
                                         key={keyboard}
