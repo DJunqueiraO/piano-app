@@ -49,15 +49,12 @@ export class PianoAudioContext {
             muted = false
         }: WaitProps
     ) => {
-        
         const play_notes = (
             props.play_notes
                 ?.get()
                 ?.filter(note => note.type === 'noteOn')
         ) || []
-
         if (PianoAudioContext.current_note >= play_notes.length) {return}
-        
         const current_tab_note = play_notes[PianoAudioContext.current_note] || null
         const current_tab_notes = (
             play_notes
