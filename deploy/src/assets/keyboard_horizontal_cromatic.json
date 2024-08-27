@@ -201,5 +201,12 @@
         "Pause": "40",
         "Alt": "23",
         "Space": "24"
-    }
+    },
+    "left_hand": [
+        "F6",
+        "KeyY",
+        "Digit7",
+        "KeyN",
+        "KeyH"
+    ]
 }

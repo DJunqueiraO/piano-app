@@ -1,7 +1,7 @@
-import { key_codes, keyboard_horizontal_interval_7 } from '../../assets/Assets'
+import { key_codes, keyboard_horizontal_interval_8 } from '../../assets/Assets'
 import { KeyButtonProps } from '../../components/Components'
 import { Keyboard } from '../Keyboards'
-import './DefaultHorizontalInterval7.css'
+import './DefaultHorizontalInterval8.css'
 
 const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   column => {
@@ -17,7 +17,7 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   }
 )
 
-export const DefaultHorizontalInterval7: Keyboard = {
-  keys: keyboard_horizontal_interval_7.keys.map(on_map),
-  notes: keyboard_horizontal_interval_7.notes
+export const DefaultHorizontalInterval8: Keyboard = {
+  keys: keyboard_horizontal_interval_8.keys.map(on_map),
+  notes: keyboard_horizontal_interval_8.notes
 }
