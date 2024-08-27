@@ -1,9 +1,8 @@
 import { Note, KeyboardProps } from '../../models/Models'
 import { Keyboards } from '../../keyboards/Keyboards'
-import { instruments, play_modes } from '../../assets/Assets'
+import { instruments } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
-import { CurrentNoteInput } from '../../pages/main/midi_player/current_note_input/CurrentNoteInput'
 
 export type WaitProps = {
     props: KeyboardProps,
