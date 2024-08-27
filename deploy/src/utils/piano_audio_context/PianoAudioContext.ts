@@ -41,7 +41,9 @@ export class PianoAudioContext {
 
     static set_current_note = (next_note: number) => {
         const input: any = document.getElementsByClassName(CurrentNoteInput.name)[0]
-        input.value = next_note.toString()
+        if(input) {
+            input.value = (next_note || 0).toString()
+        }
         return PianoAudioContext.current_note = next_note
     }
 
@@ -147,7 +149,6 @@ export class PianoAudioContext {
         if(play_notes_in_time_sliced_up) {
             const playNextNote = (index: number) => {
                 if (PianoAudioContext.current_note >= play_notes.length) {return}
-                // PianoAudioContext.current_note = index + play_notes_sliced_down.length
                 PianoAudioContext.set_current_note(index + play_notes_sliced_down.length)
                 const upper = props.upper?.get()
                 if(index >= play_notes_in_time_sliced_up.length) {return}

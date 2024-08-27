@@ -6,3 +6,9 @@
   mix-blend-mode: difference;
   width: 2.5em;
 }
+
+.CurrentNoteInput::placeholder {
+  color: white;
+  font-family: fantasy;
+  font-weight: lighter;
+}
