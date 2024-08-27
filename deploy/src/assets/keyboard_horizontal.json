@@ -34,7 +34,6 @@
             "-",
             "=",
             "Backspace",
-            "",
             "Insert",
             "Home"
         ],
@@ -53,7 +52,6 @@
             "BracketLeft",
             "BracketRight",
             "Enter",
-            "",
             "Delete",
             "End"
         ],

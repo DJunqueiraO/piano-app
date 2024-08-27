@@ -46,7 +46,6 @@ export function Piano(props: PianoProps) {
 
         const {key, code} = event
         const upper = props.upper.get() || 0
-        const current_note = PianoAudioContext.current_note
 
         if(event.ctrlKey && (key === 'z' || code === 'ArrowLeft')) {
             PianoAudioContext.decrement_current_note()
