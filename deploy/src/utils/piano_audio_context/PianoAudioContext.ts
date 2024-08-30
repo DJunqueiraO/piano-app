@@ -36,7 +36,6 @@ export class PianoAudioContext {
             : 
             0
         )
-        console.log(next_note)
         PianoAudioContext.set_current_note(
             current_note + (
                 current_note < (

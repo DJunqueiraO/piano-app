@@ -109,7 +109,9 @@ export function MidiPlayer(props: MidiPlayerProps) {
         state={props.velocity}>
         <Span>x</Span>
       </MidiPlayerInput>
-      <CurrentNoteInput/>
+      <CurrentNoteInput
+        play_notes={props.play_notes}
+        play_mode={props.play_mode}/>
       {
         play_modes.map((mode: PlayMode, index: number) => (
           <PlayModeButton

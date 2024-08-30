@@ -1,6 +1,6 @@
 .MidiPlayer {
   display: flex;
-  background-color: purple;
+  background-color: #111;
   overflow: auto;
   height: 3.5em;
 }
