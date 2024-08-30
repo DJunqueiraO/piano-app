@@ -1,7 +1,7 @@
 
 import { Piano } from "./piano/Piano";
 import './Main.css'
-import { useStateAsObject } from "../../utils/Utils";
+import { LocalStorage, useStateAsObject } from "../../utils/Utils";
 import { Div } from "../../components/Components";
 import { Tools } from "./tools/Tools";
 import { useEffect, useMemo } from "react";
@@ -11,11 +11,12 @@ import { KeyboardParameters } from "../../keyboards/Keyboards";
 
 export function Main() {
 
+    const local_storage_keyboard_parameters = new LocalStorage('keyboard_parameters')
+
     const get_keyboard_parameters: () => KeyboardParameters = () => {
-        const keyboard_parameters = localStorage.getItem('keyboard_parameters')
+        const keyboard_parameters = local_storage_keyboard_parameters.get()
         if(!keyboard_parameters) {
-            localStorage.setItem(
-                'keyboard_parameters', 
+            local_storage_keyboard_parameters.set(
                 JSON.stringify(new KeyboardParameters())
             )
         }
@@ -60,8 +61,7 @@ export function Main() {
 
     useEffect(
         () => {
-            localStorage.setItem(
-                'keyboard_parameters', 
+            local_storage_keyboard_parameters.set(
                 JSON.stringify(
                     new KeyboardParameters(note_props)
                 )
@@ -72,7 +72,6 @@ export function Main() {
 
     return (
         <Div 
-            style={{flexDirection: "column", display: "flex"}}
             className="Main">
             <Tools {...note_props}/>
             <Piano {...note_props}

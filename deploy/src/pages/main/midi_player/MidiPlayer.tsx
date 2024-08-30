@@ -18,7 +18,7 @@ type MidiPlayerProps = DivProps & KeyboardProps & {
 export function MidiPlayer(props: MidiPlayerProps) {
 
   const on_file_change = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    PianoAudioContext.current_note = 0
+    PianoAudioContext.set_current_note(0)
     PianoAudioContext.cancel_animation_frame()
     const files = event.target.files
     if(files) {
@@ -69,7 +69,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
     ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
     switch(mode.name) {
     case 'stop':
-      PianoAudioContext.current_note = next_note
+      PianoAudioContext.set_current_note(next_note)
       mode = {...mode, current_note: next_note}
       break
     case 'next':

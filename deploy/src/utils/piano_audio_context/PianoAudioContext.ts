@@ -3,6 +3,7 @@ import { Keyboards } from '../../keyboards/Keyboards'
 import { instruments } from '../../assets/Assets'
 import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
 import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
+import { LocalStorage } from '../../utils/Utils'
 
 export type WaitProps = {
     props: KeyboardProps,
@@ -14,15 +15,19 @@ export class PianoAudioContext {
 
     audio_context: AudioContext
     static animation_frame = 0
-    static current_note = 0
+    static current_note = new LocalStorage('current_note')
 
     constructor() {
         this.audio_context = new window.AudioContext()
     }
 
+    static get_current_note = () => {
+        return parseInt(PianoAudioContext.current_note.get() || "0")
+    }
+
     static increment_current_note = (play_notes?: Note[]) => {
-        const current_note = PianoAudioContext.current_note
-        return PianoAudioContext.current_note += (
+        const current_note = PianoAudioContext.get_current_note()
+        const next_note = current_note + (
             current_note < (
                 play_notes?.filter(note => note.type === 'noteOn').length || 
                 0
@@ -31,11 +36,26 @@ export class PianoAudioContext {
             : 
             0
         )
+        console.log(next_note)
+        PianoAudioContext.set_current_note(
+            current_note + (
+                current_note < (
+                    play_notes?.filter(note => note.type === 'noteOn').length || 
+                    0
+                ) - 1? 
+                1 
+                : 
+                0
+            )
+
+        )
+        return PianoAudioContext.get_current_note()
     }
 
     static decrement_current_note = () => {
-        const current_note = PianoAudioContext.current_note
-        return PianoAudioContext.current_note -= current_note > 0? 1 : 0
+        const current_note = PianoAudioContext.get_current_note()
+        PianoAudioContext.set_current_note(current_note - (current_note > 0? 1 : 0))
+        return PianoAudioContext.get_current_note()
     }
 
     static set_current_note = (next_note: number) => {
@@ -43,7 +63,8 @@ export class PianoAudioContext {
         if(input) {
             input.value = (next_note || 0).toString()
         }
-        return PianoAudioContext.current_note = next_note
+        PianoAudioContext.current_note.set(next_note.toString())
+        return PianoAudioContext.get_current_note()
     }
 
     static cancel_animation_frame = () => {
@@ -62,8 +83,8 @@ export class PianoAudioContext {
                 ?.get()
                 ?.filter(note => note.type === 'noteOn')
         ) || []
-        if (PianoAudioContext.current_note >= play_notes.length) {return}
-        const current_tab_note = play_notes[PianoAudioContext.current_note] || null
+        if (PianoAudioContext.get_current_note() >= play_notes.length) {return}
+        const current_tab_note = play_notes[PianoAudioContext.get_current_note()] || null
         const current_tab_notes = (
             play_notes
                 .reduce(
@@ -137,17 +158,17 @@ export class PianoAudioContext {
             []
         )
         const play_notes_sliced_down = (
-            play_notes.slice(0, PianoAudioContext.current_note)
+            play_notes.slice(0, PianoAudioContext.get_current_note())
         )
         const play_notes_sliced_up = (
-            play_notes.slice(PianoAudioContext.current_note)
+            play_notes.slice(PianoAudioContext.get_current_note())
         )
         const play_notes_in_time_sliced_up: Note[] = (
             play_notes_sliced_up.map(note => ({...note, time: note.time - play_notes_sliced_up[0].time}))
         )
         if(play_notes_in_time_sliced_up) {
             const playNextNote = (index: number) => {
-                if (PianoAudioContext.current_note >= play_notes.length) {return}
+                if (PianoAudioContext.get_current_note() >= play_notes.length) {return}
                 PianoAudioContext.set_current_note(index + play_notes_sliced_down.length)
                 const upper = props.upper?.get()
                 if(index >= play_notes_in_time_sliced_up.length) {return}

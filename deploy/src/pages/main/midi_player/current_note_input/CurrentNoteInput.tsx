@@ -5,12 +5,12 @@ import './CurrentNoteInput.css'
 import { useStateAsObject } from '../../../../utils/Utils'
 
 export function CurrentNoteInput(props: InputProps) {
-  const value = useStateAsObject(PianoAudioContext.current_note)
+  const value = useStateAsObject(PianoAudioContext.get_current_note())
   return (
     <Input
       {...props}
       type='number'
-      value={PianoAudioContext.current_note}
+      value={PianoAudioContext.get_current_note() || 0}
       onChange={event => {
         PianoAudioContext.set_current_note(parseInt(event.target.value))
         value.set(parseInt(event.target.value))

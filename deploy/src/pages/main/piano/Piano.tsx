@@ -77,7 +77,7 @@ export function Piano(props: PianoProps) {
                 )))
             )
             if(play_mode_is_play && event.ctrlKey) {
-                PianoAudioContext.current_note = 0
+                PianoAudioContext.set_current_note(0)
             }
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
             return
@@ -125,11 +125,9 @@ export function Piano(props: PianoProps) {
                 current_tab_key === key
             )
         )) {
-            PianoAudioContext.current_note = (
-                PianoAudioContext.current_note + 1
-            )
+            PianoAudioContext.increment_current_note(props?.play_notes?.get())
             props.play_mode.set(
-                {...props.play_mode.get(), current_note: PianoAudioContext.current_note}
+                {...props.play_mode.get(), current_note: PianoAudioContext.get_current_note()}
             )
             ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
         }

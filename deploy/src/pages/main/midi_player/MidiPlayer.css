@@ -9,7 +9,7 @@
   margin-inline: 5px;
 }
 
-.MidiPlayer .Button,
+.MidiPlayer .MidiPlayerDownloadTabButton,
 .MidiPlayer .Span {
   padding-inline: 5px;
   width: auto;
@@ -17,8 +17,4 @@
 
 #InputFile {
   display: none;
-}
-
-.MidiPlayer .Label {
-  width: 100%;
 }
