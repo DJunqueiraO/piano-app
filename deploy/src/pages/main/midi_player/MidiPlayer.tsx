@@ -1,9 +1,8 @@
 import { Button, Div, DivProps, Input, Label, MinusButton, PlusButton, Span } from '../../../components/Components'
 import { Note, KeyboardProps, PlayMode } from '../../../models/Models'
-import { midiToJson, UseStateObject } from '../../../utils/Utils'
+import { midiToJson } from '../../../utils/Utils'
 import play_modes from '../../../assets/play_modes.json'
 import './MidiPlayer.css'
-import { Keyboards } from '../../../keyboards/Keyboards'
 import { strings } from '../../../assets/Assets'
 import { MidiPlayerInput } from './midi_player_input/MidiPlayerInput'
 import { ClearButtons } from '../piano/clear_buttons/ClearButtons'
@@ -11,9 +10,7 @@ import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudio
 import { PlayModeButton } from './play_mode_button/PlayModeButton'
 import { CurrentNoteInput } from './current_note_input/CurrentNoteInput'
 
-type MidiPlayerProps = DivProps & KeyboardProps & {
-  play_notes: UseStateObject<Note[]>
-}
+type MidiPlayerProps = DivProps & KeyboardProps
 
 export function MidiPlayer(props: MidiPlayerProps) {
 
@@ -25,7 +22,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
         const file = files[0]
         if (file) {
           try {
-            props.play_notes.set(await midiToJson(file))
+            props.play_notes?.set(await midiToJson(file))
           } catch (e) {
             console.log(e)
           }
@@ -110,8 +107,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
         <Span>x</Span>
       </MidiPlayerInput>
       <CurrentNoteInput
-        play_notes={props.play_notes}
-        play_mode={props.play_mode}/>
+        {...props}/>
       {
         play_modes.map((mode: PlayMode, index: number) => (
           <PlayModeButton
