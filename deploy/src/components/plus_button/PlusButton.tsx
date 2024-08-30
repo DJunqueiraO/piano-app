@@ -15,7 +15,7 @@ export function PlusButton(props: PlusButtonProps) {
       className={`PlusButton ${props.className || ''}`}
       onClick={event => {
         props.onClick && props.onClick(event)
-        props.state?.set(props.state.get() + (props.step || 1))
+        props.state?.set((props.state.get() || 0) + (props.step || 1))
       }}/>
   )
 }

@@ -98,7 +98,7 @@ export class PianoAudioContext {
                     },
                     []
                 )
-                .map(note => ({...note, noteNumber: note.noteNumber - props.upper.get()}))
+                .map(note => ({...note, noteNumber: note.noteNumber - (props.upper.get() || 0)}))
         )
         const keyboard_notes = Keyboards.get(props.keyboard.get()).notes
         let current_tab_keys = (
@@ -152,7 +152,7 @@ export class PianoAudioContext {
                 props.play_notes
                     ?.get()
                     ?.filter(note => note.type === 'noteOn')
-                    .map(note => ({...note, time: note.time*(1/props.velocity.get())}))
+                    .map(note => ({...note, time: note.time*(1/(props.velocity.get() || 1))}))
             ) || 
             []
         )
@@ -169,7 +169,7 @@ export class PianoAudioContext {
             const playNextNote = (index: number) => {
                 if (PianoAudioContext.get_current_note() >= play_notes.length) {return}
                 PianoAudioContext.set_current_note(index + play_notes_sliced_down.length)
-                const upper = props.upper?.get()
+                const upper = props.upper?.get() || 0
                 if(index >= play_notes_in_time_sliced_up.length) {return}
                 const note = play_notes_in_time_sliced_up[index]
                 const notes = (
@@ -215,7 +215,7 @@ export class PianoAudioContext {
                         []
                     )
                 )
-                ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+                ClearButtons({keyboard: props.keyboard.get()})
                 buttonCodes.forEach(buttonCode => {
                     AnimateKeyButton({code: buttonCode, props: props})
                 })
@@ -247,7 +247,7 @@ export class PianoAudioContext {
     ) => {
         if (this.audio_context) {
             const oscillator = this.audio_context.createOscillator()
-            const instrumentObject = instruments[props.instrument.get()] || {}
+            const instrumentObject = instruments[props.instrument.get() || 0] || {}
             if (oscillator) {
                 if (!instrumentObject.value) {
                     oscillator.type = instrumentObject.name as OscillatorType;

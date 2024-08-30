@@ -37,7 +37,7 @@ export const AnimateKeyButton = (
               (key: any) => key.classList.remove(delay_class)
           )
       },
-      props.duration.get() * 300
+      (props.duration.get() || 0) * 300
   )
 
   return buttons

@@ -25,7 +25,7 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
       {props.children}
       <Input
         step={props.step}
-        value={props.state.get()}
+        value={props.state.get() || 0}
         onChange={event => {
           if(props.onChange) props.onChange(event)
           props.state.set(parseFloat(event.target.value))

@@ -22,7 +22,7 @@ export abstract class Keyboards {
   static guitar_dadgbe = "Guitar DADGBE"
   static guitar_dgdgbd = "Guitar DGDGBD"
 
-  static get(name: string) {
+  static get(name: string = Keyboards.guitar_eadgbe) {
     switch(name) {
       case Keyboards.default_horizontal:
         return DefaultHorizontal

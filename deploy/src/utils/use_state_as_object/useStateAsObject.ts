@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 export class UseStateObject<T> {
 
-    get: () => T
+    get: () => T | undefined
     set: (value: T) => void
 
     constructor(

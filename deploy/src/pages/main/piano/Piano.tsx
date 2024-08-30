@@ -20,17 +20,17 @@ export function Piano(props: PianoProps) {
     const refresh = () => {
         PianoAudioContext.cancel_animation_frame()
         if((props.play_mode.get()?.name || '') === 'play') {
-            audioContext.get().auto_play(props)
+            audioContext.get()?.auto_play(props)
         } 
         if(
             (props.play_mode.get()?.name || '') === 'pause' || 
             (props.play_mode.get()?.name || '') === 'next' || 
             (props.play_mode.get()?.name || '') === 'back'
         ) {
-            audioContext.get().wait({props})
+            audioContext.get()?.wait({props})
         }
         if((props.play_mode.get()?.name || '') === 'mute') {
-            audioContext.get().wait(
+            audioContext.get()?.wait(
                 {
                     props: props,
                     muted: true
@@ -50,12 +50,12 @@ export function Piano(props: PianoProps) {
         if(event.ctrlKey && (key === 'z' || code === 'ArrowLeft')) {
             PianoAudioContext.decrement_current_note()
             props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
-            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            ClearButtons({keyboard: props.keyboard.get()})
             return
         }
 
         if(key === ' ' || code === 'Space') {
-            const play_mode_is_play = props.play_mode.get().name === 'play'
+            const play_mode_is_play = props.play_mode.get()?.name === 'play'
             props.play_mode.set(
                 new PlayMode(play_modes.find(mode => mode.name === (
                     play_mode_is_play? (event.ctrlKey? 'stop' : 'pause') : 'play'
@@ -64,14 +64,14 @@ export function Piano(props: PianoProps) {
             if(play_mode_is_play && event.ctrlKey) {
                 PianoAudioContext.set_current_note(0)
             }
-            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            ClearButtons({keyboard: props.keyboard.get()})
             return
         }
 
         if(event.ctrlKey && (key === 'y' || code === 'ArrowRight')) {
-            PianoAudioContext.increment_current_note(props?.play_notes?.get())
+            PianoAudioContext.increment_current_note(props?.play_notes?.get() || [])
             props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
-            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            ClearButtons({keyboard: props.keyboard.get()})
             return
         }
 
@@ -87,7 +87,7 @@ export function Piano(props: PianoProps) {
             return
         }
 
-        ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+        ClearButtons({keyboard: props.keyboard.get()})
         AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
 
         if(
@@ -112,9 +112,9 @@ export function Piano(props: PianoProps) {
         )) {
             PianoAudioContext.increment_current_note(props?.play_notes?.get())
             props.play_mode.set(
-                {...props.play_mode.get(), current_note: PianoAudioContext.get_current_note()}
+                {...props.play_mode.get() || new PlayMode(play_modes[0]), current_note: PianoAudioContext.get_current_note()}
             )
-            ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+            ClearButtons({keyboard: props.keyboard.get()})
         }
     }
 
@@ -132,11 +132,11 @@ export function Piano(props: PianoProps) {
             className='Piano'
             onKeyDown={key_button_on_key_down}>
             {
-                Keyboards.get(props.keyboard.get()).keys?.map(
+                Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).keys?.map(
                     line => line.map(
                         (key_button_props: KeyButtonProps, index) => { 
 
-                            const notes = Keyboards.get(props.keyboard.get()).notes
+                            const notes = Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).notes
 
                             const note = (
                                 parseInt(notes[`${key_button_props.children}` as keyof typeof notes]) ||

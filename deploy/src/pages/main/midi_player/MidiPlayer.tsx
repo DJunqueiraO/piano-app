@@ -48,7 +48,7 @@ export function MidiPlayer(props: MidiPlayerProps) {
                 ?.filter($0 => $0.time === note.time)
             )
             if(!notes.some($0 => $0.some($1 => $1.time === note.time))) {
-              notes.push(time_notes)
+              notes.push(time_notes || [])
             }
             return notes
           },
@@ -66,14 +66,14 @@ export function MidiPlayer(props: MidiPlayerProps) {
 
   const play_mode_o_click = (mode: PlayMode) => {
     let next_note = 0
-    ClearButtons({keyboard: Keyboards.get(props.keyboard.get())})
+    ClearButtons({keyboard: props.keyboard.get()})
     switch(mode.name) {
     case 'stop':
       PianoAudioContext.set_current_note(next_note)
       mode = {...mode, current_note: next_note}
       break
     case 'next':
-      next_note = PianoAudioContext.increment_current_note(props?.play_notes?.get())
+      next_note = PianoAudioContext.increment_current_note(props?.play_notes?.get() || [])
       mode = {...mode, current_note: next_note}
       break
     case 'back':
