@@ -39,21 +39,6 @@ export function Piano(props: PianoProps) {
         }
     }
 
-    useEffect(
-        () => {
-            const handleVisibilityChange = () => {
-                if (document.visibilityState === 'visible') {
-                    refresh()
-                }
-            }
-            document.addEventListener('visibilitychange', handleVisibilityChange)
-            return () => {
-                document.removeEventListener('visibilitychange', handleVisibilityChange)
-            }
-        }, 
-        []
-    )
-
     useEffect(refresh)
 
     const key_button_on_key_down = function(event: React.KeyboardEvent) {
