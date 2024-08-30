@@ -1,6 +1,6 @@
 .ToolInput {
-    margin-right: .5em;
     display: flex;
+    background-color: black;
 }
 
 .ToolInput span {

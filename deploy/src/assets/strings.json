@@ -6,8 +6,8 @@
     "duration": "Duration",
     "instrument": "Instrument",
     "keyboard": "Keyboard",
-    "download": "Download",
-    "upload": "Upload",
+    "download": "&#11015;&#xFE0F;",
+    "upload": "&#11014;&#xFE0F;",
     "tablature": "Tablature",
     "midi": "Midi"
   }

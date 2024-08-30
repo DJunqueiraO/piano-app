@@ -34,20 +34,6 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
         min={props.min}
         max={props.max}
         style={{width: '3em'}}/>
-      <PlusButton 
-        onClick={event => {
-          if(props.onChange) props.onChange()
-        }}
-        state={props.state} 
-        step={props.step}
-        />
-      <MinusButton 
-        onClick={event => {
-          if(props.onChange) props.onChange()
-        }}
-        state={props.state} 
-        step={props.step}
-        />
     </Div>
   )
 }

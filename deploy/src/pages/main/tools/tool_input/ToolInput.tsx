@@ -21,8 +21,6 @@ export function ToolInput(props: ToolInputProps) {
                 min={-9999} 
                 type="number"
                 {...props.input_props}/>
-            <PlusButton state={props.state}/>
-            <MinusButton state={props.state}/>
         </Div>
     )
 }

@@ -91,14 +91,13 @@ export function MidiPlayer(props: MidiPlayerProps) {
         accept=".mid,.midi" 
         onChange={on_file_change}/>
       <Label 
-        htmlFor="InputFile">
-        {`${strings.en.upload} ${strings.en.midi}`}
-      </Label>
+        className='UploadButton'
+        dangerouslySetInnerHTML={{__html: strings.en.upload}}
+        htmlFor="InputFile"/>
       <Button
-        className='MidiPlayerDownloadTabButton'
-        onClick={on_download_tab}>
-        {`${strings.en.download} ${strings.en.tablature}`}
-      </Button>
+        dangerouslySetInnerHTML={{__html: strings.en.download}}
+        className='DownloadButton'
+        onClick={on_download_tab}/>
       <MidiPlayerInput 
         step={0.1}
         min={0}

@@ -3,6 +3,7 @@
   font-size: 1.5em;
   font-family: fantasy;
   font-weight: lighter;
+  mix-blend-mode: difference;
   width: max(100%, 10em);
   margin-inline: .5em;
 }

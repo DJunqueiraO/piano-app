@@ -28,12 +28,14 @@ export function Tools(props: ToolsProps) {
                     {strings.en.tone}: 
                 </ToolInput>
                 <ToolInput 
+                    style={{marginLeft: '.5em'}}
                     className='Tool'
                     input_props={{min: 0}}
                     state={props.volume}>
                     {strings.en.volume}: 
                 </ToolInput>
                 <ToolInput 
+                    style={{marginLeft: '.5em'}}
                     className='Tool'
                     input_props={{min: 0}}
                     state={props.duration}>
@@ -41,7 +43,7 @@ export function Tools(props: ToolsProps) {
                 </ToolInput>
                 <Div
                     className='Tool'
-                    style={{display: 'flex'}}>
+                    style={{display: 'flex', marginLeft: '.5em'}}>
                     <Span>{strings.en.keyboard}: </Span>
                     <Select
                         value={props.keyboard.get()}
@@ -65,13 +67,24 @@ export function Tools(props: ToolsProps) {
                 </Div>
                 <Div
                     className='Tool'
-                    style={{display: 'flex'}}>
+                    style={{display: 'flex', marginLeft: '.5em'}}>
                     <Span>{strings.en.instrument}: </Span>
                     <Select
-                        value={instruments.find(instrument => instrument.id === props.instrument.get())?.name || ''}
+                        value={
+                            instruments.find(
+                                instrument => (
+                                    instrument.id === props.instrument.get()
+                                )
+                            )?.name || ''
+                        }
                         onChange={event => {
                             props.instrument.set(
-                                instruments.find(instrument => instrument.name === event.target.value)?.id || 0
+                                instruments
+                                    .find(
+                                        instrument => (
+                                            instrument.name === event.target.value
+                                        )
+                                    )?.id || 0
                             )
                         }}>
                         {
