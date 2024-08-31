@@ -8,7 +8,7 @@ export { PlusButton, type PlusButtonProps } from "./plus_button/PlusButton"
 
 export { Option } from "./option/Option"
 
-export { Select } from "./select/Select"
+export { Select, type SelectProps } from "./select/Select"
 
 export { Column, type ColumnProps } from "./column/Column"
 

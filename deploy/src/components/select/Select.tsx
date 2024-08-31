@@ -1,6 +1,8 @@
 import './Select.css'
 
-export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
+export type SelectProps = React.SelectHTMLAttributes<HTMLSelectElement>
+
+export function Select(props: SelectProps) {
   return (
     <select
       {...props}
