@@ -58,9 +58,12 @@ export class PianoAudioContext {
     }
 
     static set_current_note = (next_note: number) => {
-        const input: any = document.getElementsByClassName("CurrentNoteInput")[0]
-        if(input) {
-            input.value = (next_note || 0).toString()
+        const inputs: HTMLCollectionOf<any> = document.getElementsByClassName("CurrentNoteInput")
+        for(let i = 0; i <= inputs.length; i++) {
+            const input = inputs[i] as HTMLInputElement
+            if(input) {
+                input.value = (next_note || 0).toString()
+            }
         }
         PianoAudioContext.current_note.set(next_note.toString())
         return PianoAudioContext.get_current_note()
