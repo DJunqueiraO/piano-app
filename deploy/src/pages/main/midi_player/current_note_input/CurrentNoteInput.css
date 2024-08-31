@@ -4,8 +4,9 @@
   font-family: fantasy;
   font-weight: lighter;
   mix-blend-mode: difference;
-  width: max(100%, 10em);
-  margin-inline: .5em;
+  width: 100%;
+  background-color: purple;
+  min-width: 2em;
 }
 
 .CurrentNoteInput::placeholder {

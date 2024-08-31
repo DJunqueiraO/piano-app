@@ -107,6 +107,10 @@ export function MidiPlayer(props: MidiPlayerProps) {
       </MidiPlayerInput>
       <CurrentNoteInput
         {...props}/>
+      <CurrentNoteInput
+        {...props}
+        type='number'
+        />
       {
         play_modes.map((mode: PlayMode, index: number) => (
           <PlayModeButton

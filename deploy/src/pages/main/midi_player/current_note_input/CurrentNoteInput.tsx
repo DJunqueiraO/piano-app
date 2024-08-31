@@ -13,7 +13,7 @@ export function CurrentNoteInput(props: CurrentNoteInputProps) {
   return (
     <Input
       {...props}
-      type='range'
+      type={props.type || 'range'}
       min={0}
       max={props.play_notes?.get()?.filter((note: Note) => note.type === 'noteOn').length}
       value={PianoAudioContext.get_current_note() || 0}

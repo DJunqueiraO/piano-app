@@ -35,7 +35,12 @@
             "=",
             "Backspace",
             "Insert",
-            "Home"
+            "Home",
+            "",
+            "",
+            "NumpadDivide",
+            "NumpadMultiply",
+            "NumpadSubtract"
         ],
         [
             "Tab",
@@ -53,7 +58,12 @@
             "BracketRight",
             "Enter",
             "Delete",
-            "End"
+            "End",
+            "",
+            "Numpad7",
+            "Numpad8",
+            "Numpad9",
+            "NumpadAdd"
         ],
         [
             "CapsLock",
@@ -68,7 +78,15 @@
             "KeyL",
             "Semicolon",
             "Quote",
-            "]"
+            "]",
+            "",
+            "",
+            "",
+            "",
+            "Numpad4",
+            "Numpad5",
+            "Numpad6",
+            "NumpadComma"
         ],
         [
             "ShiftLeft",
@@ -86,7 +104,12 @@
             "/",
             "ShiftRight",
             "",
-            "ArrowUp"
+            "ArrowUp",
+            "",
+            "Numpad1",
+            "Numpad2",
+            "Numpad3",
+            "NumpadEnter"
         ],
         [
             "ControlLeft",
@@ -105,7 +128,10 @@
             "ControlRight",
             "ArrowLeft",
             "ArrowDown",
-            "ArrowRight"
+            "ArrowRight",
+            "Numpad0",
+            "",
+            "NumpadDecimal"
         ]
     ],
     "notes": {
@@ -114,6 +140,8 @@
         "ArrowLeft": "7",
         "ArrowDown": "8",
         "ArrowRight": "9",
+        "Numpad0": "10",
+        "NumpadDecimal": "12",
 
         "ControlLeft": "0",
         "ShiftLeft": "-1",
@@ -132,6 +160,10 @@
         "/": "12",
         "ShiftRight": "13",
         "ArrowUp": "15",
+        "Numpad1": "17",
+        "Numpad2": "18",
+        "Numpad3": "19",
+        "NumpadEnter": "20",
 
         "CapsLock": "7",
         "KeyA": "8",
@@ -146,6 +178,10 @@
         "Semicolon": "17",
         "Quote": "18",
         "]": "19",
+        "Numpad4": "23",
+        "Numpad5": "24",
+        "Numpad6": "25",
+        "NumpadComma": "26",
 
         "Tab": "14",
         "KeyQ": "15",
@@ -164,6 +200,10 @@
         "Delete": "28",
         "End": "29",
         "pageDown": "30",
+        "Numpad7": "31",
+        "Numpad8": "32",
+        "Numpad9": "33",
+        "NumpadAdd": "34",
         
         "'": "21",
         "Digit1": "22",
@@ -182,6 +222,9 @@
         "Insert": "35",
         "Home": "36",
         "pageUp": "37",
+        "NumpadDivide": "38",
+        "NumpadMultiply": "39",
+        "NumpadSubtract": "40",
 
         "Escape": "28",
         "F1": "29",

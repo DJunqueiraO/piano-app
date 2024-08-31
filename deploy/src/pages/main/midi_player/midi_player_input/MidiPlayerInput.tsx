@@ -33,7 +33,7 @@ export function MidiPlayerInput(props: MidiPlayerInputProps) {
         type='number'
         min={props.min}
         max={props.max}
-        style={{width: '3em'}}/>
+        />
     </Div>
   )
 }

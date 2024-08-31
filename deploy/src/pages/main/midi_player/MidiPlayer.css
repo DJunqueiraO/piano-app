@@ -1,31 +1,27 @@
 .MidiPlayer {
   display: flex;
-  background-color: #111;
+  background-color: black;
   overflow: auto;
   height: 3.5em;
 }
 
-.MidiPlayerDownloadTabButton {
-  margin-inline: 5px;
-}
-
-.MidiPlayer .DownloadButton {
-  margin-inline: .5em;
-}
-
-.MidiPlayer .PlayModeButton, 
-.MidiPlayer .DownloadButton, 
-.MidiPlayer .UploadButton {
-  padding-inline: 1.5em;
+.MidiPlayer > *:not(.CurrentNoteInput) {
   width: auto;
-}
-
-.MidiPlayer .MidiPlayerDownloadTabButton,
-.MidiPlayer .Span {
-  padding-inline: 5px;
-  width: auto;
+  padding-inline: 1em;
 }
 
 #InputFile {
   display: none;
+}
+
+@media (max-width: 45em) {
+  .CurrentNoteInput[type=range] {
+    display: none;
+  }
+}
+
+@media (min-width: 45em) {
+  .CurrentNoteInput[type=number] {
+    display: none;
+  }
 }
