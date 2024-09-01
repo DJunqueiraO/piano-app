@@ -7,6 +7,12 @@
     line-break: anywhere;
 }
 
+@media (max-height: 30em) {
+    .KeyButton hr {
+        display: none;
+    }
+}
+
 .KeyButton {
     align-items: center;
     display: flex;
