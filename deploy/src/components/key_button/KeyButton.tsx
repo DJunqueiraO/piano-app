@@ -4,7 +4,8 @@ import { Note } from "../../models/Models"
 
 export type KeyButtonProps = (
     ButtonHTMLAttributes<HTMLButtonElement> & {
-        span_props?: HTMLAttributes<HTMLSpanElement>
+        first_span_props?: HTMLAttributes<HTMLSpanElement>
+        last_span_props?: HTMLAttributes<HTMLSpanElement>
     }
 )
 
@@ -38,10 +39,13 @@ export function KeyButton(props: KeyButtonProps) {
             className={on_class_name()}
             onClick={props.onClick}>
             <span
-                {...props.span_props}/>
+                {...props.first_span_props}/>
             <hr
                 style={on_point_style()}/>
-            {onChildren()}
+            <span
+                {...props.last_span_props}>
+                {onChildren()}
+            </span>
         </button>
     )
     return <></>

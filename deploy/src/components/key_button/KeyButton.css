@@ -1,3 +1,17 @@
+.KeyButton {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+@media (max-height: 25em) {
+    .KeyButton span:last-child {
+        display: none;
+    }
+}
+
 .KeyButton span {
     font-family: monospace;
     font-weight: bold;
@@ -11,13 +25,6 @@
     .KeyButton hr {
         display: none;
     }
-}
-
-.KeyButton {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .KeyButton hr {

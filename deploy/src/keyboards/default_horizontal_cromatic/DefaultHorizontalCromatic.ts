@@ -10,7 +10,7 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
       keyboard_horizontal_cromatic.left_hand.some(key => key === column)
     )
     return {
-      span_props: {
+      first_span_props: {
         dangerouslySetInnerHTML: {
           __html: key_codes[column as keyof typeof key_codes]
         }

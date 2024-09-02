@@ -162,7 +162,7 @@ export function Piano(props: PianoProps) {
 
                             return (
                                 <KeyButton 
-                                    span_props={
+                                    first_span_props={
                                         {
                                             children: `${index}`
                                         }
