@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
-import { KeyButtonProps } from "../../../../components/Components"
-import { Keyboards } from "../../../../keyboards/Keyboards"
+import { KeyButtonProps } from "../../components/Components"
+import { Keyboards } from "../../keyboards/Keyboards"
 
 interface ClearButtonsProps {
   keyboard?: string

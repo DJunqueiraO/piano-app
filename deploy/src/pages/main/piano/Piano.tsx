@@ -1,17 +1,17 @@
 import { 
+    AnimateKeyButton,
+    ClearButtons,
     useStateAsObject
 } from '../../../utils/Utils'
-import { KeyButton, Grid, KeyButtonProps } from '../../../components/Components'
+import { KeyButton, Grid, KeyButtonProps, GridProps } from '../../../components/Components'
 import './Piano.css'
 import { useEffect } from 'react'
 import { Note, KeyboardProps, PlayMode } from '../../../models/Models'
 import { PianoAudioContext } from '../../../utils/piano_audio_context/PianoAudioContext'
 import { Keyboards } from '../../../keyboards/Keyboards'
-import { AnimateKeyButton } from './animate_key_button/AnimateKeyButton'
-import { ClearButtons } from './clear_buttons/ClearButtons'
 import { play_modes } from '../../../assets/Assets'
 
-export type PianoProps = KeyboardProps
+export type PianoProps = KeyboardProps & GridProps
 
 export function Piano(props: PianoProps) {
 
@@ -126,7 +126,7 @@ export function Piano(props: PianoProps) {
 
     return (
         <Grid 
-            id='Grid'
+            {...props}
             fill_vertically='true'
             align_columns='true'
             className='Piano'

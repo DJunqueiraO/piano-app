@@ -1,4 +1,4 @@
-import { PianoProps } from "../Piano"
+import { PianoProps } from "../../pages/main/piano/Piano"
 
 interface AnimateKeyButtonProps {
   code: string
@@ -17,17 +17,19 @@ export const AnimateKeyButton = (
     delay_class = 'KeyButtonLastNote'
   }: AnimateKeyButtonProps
 ) => {
-  let buttons: any = document.getElementsByClassName(
+  let buttons = Array.from(document.getElementsByClassName(
       `KeyButton${code || NaN}`
-  )
-  if(buttons.length === 0) buttons = document.getElementsByClassName(
-      `KeyButton${key || NaN}`
-  )
+  ) as HTMLCollectionOf<HTMLButtonElement>)
+  if(buttons.length === 0) {
+    buttons = Array.from(document.getElementsByClassName(
+        `KeyButton${key || NaN}`
+    ) as HTMLCollectionOf<HTMLButtonElement>)
+  }
   buttons = Array.from(buttons)
   buttons.forEach(
-      (button: any) => {
-          button.classList.add(delay_class)
-          button.classList.add(active_class)
+      (button) => {
+        button.classList.add(delay_class)
+        button.classList.add(active_class)
       }
   )
 

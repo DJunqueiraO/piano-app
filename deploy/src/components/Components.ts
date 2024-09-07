@@ -14,7 +14,7 @@ export { Column, type ColumnProps } from "./column/Column"
 
 export { Row, type RowProps } from "./row/Row"
 
-export { Grid } from "./grid/Grid"
+export { Grid, type GridProps } from "./grid/Grid"
 
 export { Div, type DivProps } from "./div/Div"
 

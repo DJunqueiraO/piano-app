@@ -1,6 +1,6 @@
 import { Column, ColumnProps, Row, RowProps } from '../Components'
 
-type GridProps = (
+export type GridProps = (
   React.HTMLAttributes<HTMLDivElement> & 
   {
     children?: Array<Array<React.ReactNode>>,

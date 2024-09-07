@@ -1,9 +1,7 @@
 import { Note, KeyboardProps } from '../../models/Models'
 import { Keyboards } from '../../keyboards/Keyboards'
 import { instruments } from '../../assets/Assets'
-import { AnimateKeyButton } from '../../pages/main/piano/animate_key_button/AnimateKeyButton'
-import { ClearButtons } from '../../pages/main/piano/clear_buttons/ClearButtons'
-import { LocalStorage } from '../../utils/Utils'
+import { AnimateKeyButton, ClearButtons, LocalStorage } from '../../utils/Utils'
 
 export type WaitProps = {
     props: KeyboardProps,
