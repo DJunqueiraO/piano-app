@@ -9,6 +9,10 @@
   min-width: 2em;
 }
 
+.CurrentNoteInput[type=range] {
+  margin-right: .5em;
+}
+
 .CurrentNoteInput::placeholder {
   color: white;
   font-family: fantasy;

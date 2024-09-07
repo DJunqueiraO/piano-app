@@ -1,0 +1,10 @@
+.Piano .KeyButtonLastNote {
+  color: greenyellow;
+  background-color: cadetblue;
+}
+
+.Piano .KeyButtonActive,
+.Piano .KeyButton:active {
+  color: green;
+  background-color: greenyellow;
+}

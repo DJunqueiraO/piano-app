@@ -1,4 +1,5 @@
 import { PianoProps } from "../../pages/main/piano/Piano"
+import './AnimateKeyButton.css'
 
 interface AnimateKeyButtonProps {
   code: string

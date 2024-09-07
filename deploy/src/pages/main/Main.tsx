@@ -61,6 +61,18 @@ export function Main() {
 
     useEffect(
         () => {
+            document.addEventListener(
+                'visibilitychange',
+                () => {
+                    play_mode.set(new PlayMode({name: 'mute'}))
+                }
+            )
+        },
+        []
+    )
+
+    useEffect(
+        () => {
             local_storage_keyboard_parameters.set(
                 JSON.stringify(
                     new KeyboardParameters(note_props)
