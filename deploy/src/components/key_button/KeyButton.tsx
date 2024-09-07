@@ -2,12 +2,12 @@ import React, { ButtonHTMLAttributes, HTMLAttributes } from "react"
 import './KeyButton.css'
 import { Note } from "../../models/Models"
 
-export type KeyButtonProps = (
-    ButtonHTMLAttributes<HTMLButtonElement> & {
-        first_span_props?: HTMLAttributes<HTMLSpanElement>
-        last_span_props?: HTMLAttributes<HTMLSpanElement>
-    }
-)
+export type KeyButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+    first_span_props?: HTMLAttributes<HTMLSpanElement>
+    last_span_props?: HTMLAttributes<HTMLSpanElement>
+    is_keyboard?: string
+}
+
 
 export function KeyButton(props: KeyButtonProps) {
 
@@ -27,10 +27,16 @@ export function KeyButton(props: KeyButtonProps) {
     )
 
     const on_class_name = () => {
-        return ('KeyButton '
-            .concat(`${`${onChildren()}`.includes('#')? 'KeyButtonSharpNote' : ''} `)
+        let className = 'KeyButton '
+        if(props.is_keyboard) {
+            className += `KeyButtonKeyboard `
+            className += `${onChildren()}`.includes('#')? 'KeyButtonKeyboardSharpNote' : ''
+        }
+        return (
+            className
             .concat(`${props.className || ''} `)
-            .concat(`${onChildren() || ''} `))
+            .concat(`${onChildren() || ''} `)
+        )
     }
 
     if(onChildren()) return (

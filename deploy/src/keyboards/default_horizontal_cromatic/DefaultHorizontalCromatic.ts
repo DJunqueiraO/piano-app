@@ -2,7 +2,6 @@ import keyboard_horizontal_cromatic from '../../assets/keyboard_horizontal_croma
 import key_codes from '../../assets/key_codes.json'
 import { KeyButtonProps } from '../../components/Components'
 import { Keyboard } from '../Keyboards'
-import './DefaultHorizontalCromatic.css'
 
 const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   column => {
@@ -10,6 +9,7 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
       keyboard_horizontal_cromatic.left_hand.some(key => key === column)
     )
     return {
+      is_keyboard: 'true',
       first_span_props: {
         dangerouslySetInnerHTML: {
           __html: key_codes[column as keyof typeof key_codes]

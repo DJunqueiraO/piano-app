@@ -45,6 +45,8 @@ export function Tools(props: ToolsProps) {
                 <ToolsDivSelect
                     {...props}
                     select_props={{
+                        value: props.keyboard.get(),
+                        onChange: (event) => props.keyboard.set(event.target.value),
                         children: (
                             Object.values(Keyboards).map(
                                 (keyboard) => (
@@ -60,6 +62,8 @@ export function Tools(props: ToolsProps) {
                 <ToolsDivSelect
                     {...props}
                     select_props={{
+                        value: instruments[props.instrument.get() || 0]?.name,
+                        onChange: (event) => props.instrument.set(instruments.find(instrument => instrument.name === event.target.value)?.id || 0),
                         children: (
                             instruments.map(
                                 instrument => (

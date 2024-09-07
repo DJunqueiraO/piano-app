@@ -7,6 +7,7 @@ const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   column => {
 
     return {
+      is_keyboard: 'true',
       first_span_props: {
         dangerouslySetInnerHTML: {
           __html: key_codes[column as keyof typeof key_codes]

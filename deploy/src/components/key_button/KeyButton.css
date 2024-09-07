@@ -34,20 +34,20 @@
     margin-block: .5em;
 }
 
-.KeyButton, .KeyButtonSharpNote:active,
+/* .KeyButton, .KeyButtonSharpNote:active,
 .KeyButtonSharpNote, .KeyButton:active {
     font-weight: bold;
     font-size: .8rem;
     width: 100%;
     height: 100%;
 
-}
+} */
 
-.KeyButton, .KeyButtonSharpNote:active {
+.KeyButtonKeyboard, .KeyButtonKeyboardSharpNote:active {
     background-color: white;
 }
 
-.KeyButtonSharpNote, .KeyButton:active {
+.KeyButtonKeyboardSharpNote, .KeyButtonKeyboard:active {
     background-color: black;
     color: white;
 }

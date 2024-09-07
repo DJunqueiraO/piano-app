@@ -22,13 +22,7 @@ export function ToolsDivSelect(props: ToolsDivSelectProps) {
       style={{display: 'flex', marginLeft: '.5em'}}>
       {props.children}
       <Select
-        {...props.select_props}
-        value={props.keyboard.get()}
-        onChange={event => {
-            props.keyboard.set(
-                event.target.value
-            )
-        }}>
+        {...props.select_props}>
       </Select>
     </Div>
   )

@@ -6,6 +6,7 @@ import './DefaultVertical.css'
 const on_map: (row: string[]) => KeyButtonProps[] = row => row.map(
   column => {
     return {
+      is_keyboard: 'true',
       children: `${column}`
     }
   }
