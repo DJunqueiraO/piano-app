@@ -89,12 +89,6 @@ export function Main() {
             <Piano {...note_props}
                 play_notes={play_notes}/>
             <MidiPlayer {...note_props}
-                onClick={
-                    () => {
-                        const button = document.getElementsByClassName('KeyButton')[0] as HTMLButtonElement
-                        button.focus()
-                    }
-                }
                 play_notes={play_notes}/>
         </Div>
     )
