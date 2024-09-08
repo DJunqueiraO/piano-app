@@ -47,46 +47,6 @@ export function Piano(props: PianoProps) {
         const {key, code} = event
         const upper = props.upper.get() || 0
 
-        if(event.ctrlKey && (key === 'z' || code === 'ArrowLeft')) {
-            PianoAudioContext.decrement_current_note()
-            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
-            ClearButtons({keyboard: props.keyboard.get()})
-            return
-        }
-
-        if(key === ' ' || code === 'Space') {
-            const play_mode_is_play = props.play_mode.get()?.name === 'play'
-            props.play_mode.set(
-                new PlayMode(play_modes.find(mode => mode.name === (
-                    play_mode_is_play? (event.ctrlKey? 'stop' : 'pause') : 'play'
-                )))
-            )
-            if(play_mode_is_play && event.ctrlKey) {
-                PianoAudioContext.set_current_note(0)
-            }
-            ClearButtons({keyboard: props.keyboard.get()})
-            return
-        }
-
-        if(event.ctrlKey && (key === 'y' || code === 'ArrowRight')) {
-            PianoAudioContext.increment_current_note(props?.play_notes?.get() || [])
-            props.play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
-            ClearButtons({keyboard: props.keyboard.get()})
-            return
-        }
-
-        if(key === 'PageUp') {
-            const by = 1
-            props.upper.set(upper + by)
-            return
-        }
-
-        if(key === 'PageDown') {
-            const by = - 1
-            props.upper.set(upper + by)
-            return
-        }
-
         ClearButtons({keyboard: props.keyboard.get()})
         AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
 

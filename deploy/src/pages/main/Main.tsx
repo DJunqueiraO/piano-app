@@ -1,13 +1,15 @@
 
 import { Piano } from "./piano/Piano";
 import './Main.css'
-import { LocalStorage, useStateAsObject } from "../../utils/Utils";
+import { ClearButtons, LocalStorage, useStateAsObject } from "../../utils/Utils";
 import { Div } from "../../components/Components";
 import { Tools } from "./tools/Tools";
 import { useEffect, useMemo } from "react";
 import { Note, KeyboardProps, PlayMode } from "../../models/Models";
 import { MidiPlayer } from "./midi_player/MidiPlayer";
 import { KeyboardParameters } from "../../keyboards/Keyboards";
+import { play_modes } from "../../assets/Assets";
+import { PianoAudioContext } from "../../utils/piano_audio_context/PianoAudioContext";
 
 export function Main() {
 
@@ -61,6 +63,54 @@ export function Main() {
 
     useEffect(
         () => {
+            document.addEventListener(
+                'keydown',
+                event => {
+                    event.preventDefault()
+                    const {key, code, ctrlKey} = event
+                    const play = () => {
+                        let next_play_mode = get_keyboard_parameters().play_mode.name === 'play'? 'pause' : 'play'
+                        if(ctrlKey) {
+                            PianoAudioContext.set_current_note(0)
+                            next_play_mode = 'stop'
+                        }
+                        play_mode.set(
+                            new PlayMode(play_modes.find(mode => mode.name === (next_play_mode)))
+                        )
+                    }
+                    const back = () => {
+                        if(!ctrlKey) return
+                        PianoAudioContext.decrement_current_note()
+                        play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
+                    }
+                    const next = () => {
+                        if(!ctrlKey) return
+                        PianoAudioContext.increment_current_note(play_notes?.get() || [])
+                        play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
+                    }
+                    const tone = (by: number) => {
+                        const current_upper = get_keyboard_parameters().upper
+                        upper.set(current_upper + by)
+                    }
+                    const controls = {
+                        ' ': play,
+                        'Space': play,
+                        'z': back,
+                        'ArrowLeft': back,
+                        'y': next,
+                        'ArrowRight': next,
+                        'PageUp': () => tone(1),
+                        'PageDown': () => tone(-1)
+                    }
+                    if(controls[key as keyof typeof controls]) {
+                        controls[key as keyof typeof controls]()
+                    } else if(controls[code as keyof typeof controls]) {
+                        controls[code as keyof typeof controls]()
+                    }
+                    ClearButtons({keyboard: keyboard.get(), active_class: 'KeyButtonLastNote'})
+                    ClearButtons({keyboard: keyboard.get()})
+                }
+            )
             document.addEventListener(
                 'visibilitychange',
                 () => {
