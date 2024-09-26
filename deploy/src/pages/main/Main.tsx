@@ -68,7 +68,12 @@ export function Main() {
                 event => {
                     const {key, code, ctrlKey} = event
                     const play = () => {
-                        let next_play_mode = get_keyboard_parameters().play_mode.name === 'play'? 'pause' : 'play'
+                        let next_play_mode = (
+                            get_keyboard_parameters().play_mode.name === 'play'?
+                            'pause'
+                            :
+                            'play'
+                        )
                         if(ctrlKey) {
                             PianoAudioContext.set_current_note(0)
                             next_play_mode = 'stop'
@@ -101,15 +106,18 @@ export function Main() {
                         'PageUp': () => tone(1),
                         'PageDown': () => tone(-1)
                     }
-                    if(controls[key as keyof typeof controls]) {
+                    const refresh = () => {
                         event.preventDefault()
-                        controls[key as keyof typeof controls]()
-                    } else if(controls[code as keyof typeof controls]) {
-                        event.preventDefault()
-                        controls[code as keyof typeof controls]()
+                        ClearButtons({keyboard: keyboard.get(), active_class: 'KeyButtonLastNote'})
+                        ClearButtons({keyboard: keyboard.get()})
                     }
-                    ClearButtons({keyboard: keyboard.get(), active_class: 'KeyButtonLastNote'})
-                    ClearButtons({keyboard: keyboard.get()})
+                    if(controls[key as keyof typeof controls]) {
+                        controls[key as keyof typeof controls]()
+                        refresh()
+                    } else if(controls[code as keyof typeof controls]) {
+                        controls[code as keyof typeof controls]()
+                        refresh()
+                    }
                 }
             )
             document.addEventListener(

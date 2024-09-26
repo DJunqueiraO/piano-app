@@ -15,22 +15,23 @@ export type PianoProps = KeyboardProps & GridProps
 
 export function Piano(props: PianoProps) {
 
-    const audioContext = useStateAsObject(new PianoAudioContext())
+    const audio_context = useStateAsObject(new PianoAudioContext())
+    const ctrlKey = useStateAsObject(false)
 
     const refresh = () => {
         PianoAudioContext.cancel_animation_frame()
         if((props.play_mode.get()?.name || '') === 'play') {
-            audioContext.get()?.auto_play(props)
+            audio_context.get()?.auto_play(props)
         } 
         if(
             (props.play_mode.get()?.name || '') === 'pause' || 
             (props.play_mode.get()?.name || '') === 'next' || 
             (props.play_mode.get()?.name || '') === 'back'
         ) {
-            audioContext.get()?.wait({props})
+            audio_context.get()?.wait({props})
         }
         if((props.play_mode.get()?.name || '') === 'mute') {
-            audioContext.get()?.wait(
+            audio_context.get()?.wait(
                 {
                     props: props,
                     muted: true
@@ -39,16 +40,11 @@ export function Piano(props: PianoProps) {
         }
     }
 
-    useEffect(refresh)
-
-    const key_button_on_key_down = function(event: React.KeyboardEvent) {
+    const onKeyDown = function(event: KeyboardEvent) {
         event.preventDefault()
 
-        const {key, code} = event
-        const upper = props.upper.get() || 0
-
         ClearButtons({keyboard: props.keyboard.get()})
-        AnimateKeyButton({code: code, key: key, props: props})[0]?.click()
+        AnimateKeyButton({code: event.code, key: event.key, props: props})[0]?.click()
 
         if(
             (props.play_mode.get()?.name || '') === 'pause' ||
@@ -57,7 +53,7 @@ export function Piano(props: PianoProps) {
             return
         }
 
-        const current_tab_keys = audioContext.get()?.wait(
+        const current_tab_keys = audio_context.get()?.wait(
             {
                 props: props,
                 muted: true
@@ -66,31 +62,38 @@ export function Piano(props: PianoProps) {
 
         if (current_tab_keys?.some(
             current_tab_key => (
-                current_tab_key === code || 
-                current_tab_key === key
+                current_tab_key === event.code || 
+                current_tab_key === event.key
             )
         )) {
             PianoAudioContext.increment_current_note(props?.play_notes?.get())
             props.play_mode.set(
-                {...props.play_mode.get() || new PlayMode(play_modes[0]), current_note: PianoAudioContext.get_current_note()}
+                {
+                    ...props.play_mode.get() || new PlayMode(play_modes[0]), 
+                    current_note: PianoAudioContext.get_current_note()
+                }
             )
             ClearButtons({keyboard: props.keyboard.get()})
         }
     }
 
+
     const key_button_on_click = (noteNumber: number) => {
-        audioContext.get()?.play(
-            Note.get_frequency(noteNumber), props
+        audio_context.get()?.play(
+            Note.get_frequency(noteNumber), 
+            props
         )
     }
+
+    useEffect(refresh)
+    useEffect(() => document.addEventListener('keydown', onKeyDown), [])
 
     return (
         <Grid 
             {...props}
             fill_vertically='true'
             align_columns='true'
-            className='Piano'
-            onKeyDown={key_button_on_key_down}>
+            className='Piano'>
             {
                 Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).keys?.map(
                     line => line.map(

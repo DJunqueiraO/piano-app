@@ -33,15 +33,15 @@ export const AnimateKeyButton = (
         button.classList.add(active_class)
       }
   )
-
   setTimeout(
       () => {
           buttons.forEach(
-              (key: any) => key.classList.remove(delay_class)
+              (button) => {
+                button.classList.remove(delay_class)
+              }
           )
       },
       (props.duration.get() || 0) * 300
   )
-
   return buttons
 }
