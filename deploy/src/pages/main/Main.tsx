@@ -61,64 +61,72 @@ export function Main() {
         ]
     )
 
+    const onKeyDown = (event: KeyboardEvent) => {
+        const {key, code, ctrlKey, target} = event
+
+        if(target instanceof HTMLInputElement) {
+            return
+        }
+
+
+        const play = () => {
+            let next_play_mode = (
+                get_keyboard_parameters().play_mode.name === 'play'?
+                'pause'
+                :
+                'play'
+            )
+            if(ctrlKey) {
+                PianoAudioContext.set_current_note(0)
+                next_play_mode = 'stop'
+            }
+            play_mode.set(
+                new PlayMode(play_modes.find(mode => mode.name === (next_play_mode)))
+            )
+        }
+        const back = () => {
+            if(!ctrlKey) return
+            PianoAudioContext.decrement_current_note()
+            play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
+        }
+        const next = () => {
+            if(!ctrlKey) return
+            PianoAudioContext.increment_current_note(play_notes?.get() || [])
+            play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
+        }
+        const tone = (by: number) => {
+            const current_upper = get_keyboard_parameters().upper
+            upper.set(current_upper + by)
+        }
+        const controls = {
+            ' ': play,
+            'Space': play,
+            'z': back,
+            'ArrowLeft': back,
+            'y': next,
+            'ArrowRight': next,
+            'PageUp': () => tone(1),
+            'PageDown': () => tone(-1)
+        }
+        const refresh = () => {
+            event.preventDefault()
+            ClearButtons({keyboard: keyboard.get(), active_class: 'KeyButtonLastNote'})
+            ClearButtons({keyboard: keyboard.get()})
+        }
+        if(controls[key as keyof typeof controls]) {
+            controls[key as keyof typeof controls]()
+            refresh()
+        } else if(controls[code as keyof typeof controls]) {
+            controls[code as keyof typeof controls]()
+            refresh()
+        }
+    }
+    
+
     useEffect(
         () => {
             document.addEventListener(
-                'keydown',
-                event => {
-                    const {key, code, ctrlKey} = event
-                    const play = () => {
-                        let next_play_mode = (
-                            get_keyboard_parameters().play_mode.name === 'play'?
-                            'pause'
-                            :
-                            'play'
-                        )
-                        if(ctrlKey) {
-                            PianoAudioContext.set_current_note(0)
-                            next_play_mode = 'stop'
-                        }
-                        play_mode.set(
-                            new PlayMode(play_modes.find(mode => mode.name === (next_play_mode)))
-                        )
-                    }
-                    const back = () => {
-                        if(!ctrlKey) return
-                        PianoAudioContext.decrement_current_note()
-                        play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'back')))
-                    }
-                    const next = () => {
-                        if(!ctrlKey) return
-                        PianoAudioContext.increment_current_note(play_notes?.get() || [])
-                        play_mode.set(new PlayMode(play_modes.find(mode => mode.name === 'next')))
-                    }
-                    const tone = (by: number) => {
-                        const current_upper = get_keyboard_parameters().upper
-                        upper.set(current_upper + by)
-                    }
-                    const controls = {
-                        ' ': play,
-                        'Space': play,
-                        'z': back,
-                        'ArrowLeft': back,
-                        'y': next,
-                        'ArrowRight': next,
-                        'PageUp': () => tone(1),
-                        'PageDown': () => tone(-1)
-                    }
-                    const refresh = () => {
-                        event.preventDefault()
-                        ClearButtons({keyboard: keyboard.get(), active_class: 'KeyButtonLastNote'})
-                        ClearButtons({keyboard: keyboard.get()})
-                    }
-                    if(controls[key as keyof typeof controls]) {
-                        controls[key as keyof typeof controls]()
-                        refresh()
-                    } else if(controls[code as keyof typeof controls]) {
-                        controls[code as keyof typeof controls]()
-                        refresh()
-                    }
-                }
+                'keydown', onKeyDown
             )
             document.addEventListener(
                 'visibilitychange',

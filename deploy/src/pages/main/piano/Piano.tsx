@@ -40,7 +40,7 @@ export function Piano(props: PianoProps) {
         }
     }
 
-    const onKeyDown = function(event: KeyboardEvent) {
+    const onKeyDown = function(event: React.KeyboardEvent<HTMLDivElement>) {
         event.preventDefault()
 
         ClearButtons({keyboard: props.keyboard.get()})
@@ -86,14 +86,14 @@ export function Piano(props: PianoProps) {
     }
 
     useEffect(refresh)
-    useEffect(() => document.addEventListener('keydown', onKeyDown), [])
 
     return (
         <Grid 
             {...props}
             fill_vertically='true'
             align_columns='true'
-            className='Piano'>
+            className='Piano'
+            onKeyDown={onKeyDown}>
             {
                 Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).keys?.map(
                     line => line.map(
