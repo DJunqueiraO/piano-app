@@ -44,7 +44,15 @@ export function Piano(props: PianoProps) {
         event.preventDefault()
 
         ClearButtons({keyboard: props.keyboard.get()})
-        AnimateKeyButton({code: event.code, key: event.key, props: props})[0]?.click()
+        const button = AnimateKeyButton({code: event.code, key: event.key, props: props})[0]
+
+        if(button) {
+            const notes = Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).notes
+            const upper = (props.upper.get() || 0) + (event.ctrlKey? 12 : 0)
+            const note = notes[event.code] || notes[event.key]
+            const frequency = parseInt(note) + upper
+            key_button_on_click(frequency)
+        }
 
         if(
             (props.play_mode.get()?.name || '') === 'pause' ||

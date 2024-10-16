@@ -115,10 +115,8 @@ export function Main() {
         }
         if(controls[key as keyof typeof controls]) {
             controls[key as keyof typeof controls]()
-            refresh()
         } else if(controls[code as keyof typeof controls]) {
             controls[code as keyof typeof controls]()
-            refresh()
         }
     }
     

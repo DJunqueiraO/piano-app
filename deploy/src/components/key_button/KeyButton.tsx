@@ -49,6 +49,7 @@ export function KeyButton(props: KeyButtonProps) {
             <hr
                 style={on_point_style()}/>
             <span
+                className="KeyButtonNoteSpan"
                 {...props.last_span_props}>
                 {onChildren()}
             </span>

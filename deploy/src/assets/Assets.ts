@@ -3,6 +3,7 @@ import key_codes_json from './key_codes.json'
 import keyboard_horizontal_json from './keyboard_horizontal.json'
 import keyboard_horizontal_cromatic_json from './keyboard_horizontal_cromatic.json'
 import keyboard_horizontal_interval_7_json from './keyboard_horizontal_interval_7.json'
+import keyboard_horizontal_interval_5_json from './keyboard_horizontal_interval_5.json'
 import keyboard_vertical_json from './keyboard_vertical.json'
 import play_modes_json from './play_modes.json'
 import strings_json from './strings.json'
@@ -14,6 +15,7 @@ export const key_codes = key_codes_json
 export const keyboard_horizontal = keyboard_horizontal_json
 export const keyboard_horizontal_cromatic = keyboard_horizontal_cromatic_json
 export const keyboard_horizontal_interval_7 = keyboard_horizontal_interval_7_json
+export const keyboard_horizontal_interval_5 = keyboard_horizontal_interval_5_json
 export const keyboard_vertical = keyboard_vertical_json
 export const play_modes = play_modes_json
 export const strings = strings_json
