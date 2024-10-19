@@ -1,9 +1,6 @@
 import { DefaultHorizontal } from "./default_horizontal/DefaultHorizontal"
 
-import { DefaultHorizontalCromatic } from "./default_horizontal_cromatic/DefaultHorizontalCromatic"
-import { DefaultHorizontalInterval5 } from "./default_horizontal_interval_5/DefaultHorizontalInterval5"
-
-import { DefaultHorizontalInterval7 } from "./default_horizontal_interval_7/DefaultHorizontalInterval7"
+import { DefaultHorizontalInterval } from "./default_horizontal_interval/DefaultHorizontalInterval"
 
 import { DefaultVertical } from "./default_vertical/DefaultVertical"
 
@@ -31,11 +28,11 @@ export abstract class Keyboards {
       case Keyboards.default_vertical:
         return DefaultVertical
       case Keyboards.default_horizontal_cromatic:
-        return DefaultHorizontalCromatic
+        return new DefaultHorizontalInterval({interval: 5, division: 6, step: -4})
       case Keyboards.default_horizontal_interval_7:
-        return DefaultHorizontalInterval7
+        return new DefaultHorizontalInterval({interval: 7})
       case Keyboards.default_horizontal_interval_5:
-        return DefaultHorizontalInterval5
+        return new DefaultHorizontalInterval({interval: 5})
       case Keyboards.guitar_eadgbe:
         return new GuitarArm()
       case Keyboards.guitar_dadgbe:

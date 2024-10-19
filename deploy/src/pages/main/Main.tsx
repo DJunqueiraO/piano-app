@@ -62,7 +62,7 @@ export function Main() {
     )
 
     const onKeyDown = (event: KeyboardEvent) => {
-        const {key, code, ctrlKey, target} = event
+        const {key, code, ctrlKey, target, altKey} = event
 
         if(target instanceof HTMLInputElement) {
             return
@@ -105,8 +105,8 @@ export function Main() {
             'ArrowLeft': back,
             'y': next,
             'ArrowRight': next,
-            'PageUp': () => tone(1),
-            'PageDown': () => tone(-1)
+            'PageUp': () => tone(1 + (altKey? 12 : 0)),
+            'PageDown': () => tone(-(1 + (altKey? 12 : 0)))
         }
         const refresh = () => {
             event.preventDefault()

@@ -16,7 +16,6 @@ export type PianoProps = KeyboardProps & GridProps
 export function Piano(props: PianoProps) {
 
     const audio_context = useStateAsObject(new PianoAudioContext())
-    const ctrlKey = useStateAsObject(false)
 
     const refresh = () => {
         PianoAudioContext.cancel_animation_frame()
@@ -48,7 +47,7 @@ export function Piano(props: PianoProps) {
 
         if(button) {
             const notes = Keyboards.get(props.keyboard.get() || Object.values(Keyboards)[0]).notes
-            const upper = (props.upper.get() || 0) + (event.ctrlKey? 12 : 0)
+            const upper = (props.upper.get() || 0) + (event.altKey? 12 : 0)
             const note = notes[event.code] || notes[event.key]
             const frequency = parseInt(note) + upper
             key_button_on_click(frequency)
@@ -112,7 +111,7 @@ export function Piano(props: PianoProps) {
                             const note = (
                                 parseInt(notes[`${key_button_props.children}` as keyof typeof notes]) ||
                                 parseInt(`${key_button_props.children}`) 
-                            )
+                            ) || 0
 
                             const noteTone = note + (props.upper.get() || 0)
 
@@ -130,7 +129,6 @@ export function Piano(props: PianoProps) {
                                     .concat(` KeyButton${`${key_button_props.children}`}`)
                                     .concat(` ${note > 25? 'KeyButtonRightHand' : ''}`)
                             }
-
                             return (
                                 <KeyButton 
                                     first_span_props={

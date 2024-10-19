@@ -16,8 +16,8 @@
             "F11",
             "F12",
             "",
-            "",
-            ""
+            "ScrollLock",
+            "Pause"
         ],
         [
             "'",
@@ -37,7 +37,7 @@
             "Insert",
             "Home",
             "",
-            "",
+            "NumLock",
             "NumpadDivide",
             "NumpadMultiply",
             "NumpadSubtract"
@@ -230,12 +230,12 @@
         "Backspace": "47",
         "Insert": "48",
         "Home": "49",
+        "NumLock": "50",
         "NumpadDivide": "51",
         "NumpadMultiply": "52",
         "NumpadSubtract": "53",
 
         "pageUp": "50",
-        "NumLock": "51",
         "*": "52",
         "F6": "47",
         "F7": "48",
@@ -245,8 +245,8 @@
         "F11": "52",
         "F12": "53",
         "print": "38",
-        "ScrollLock": "39",
-        "Pause": "40",
+        "ScrollLock": "56",
+        "Pause": "57",
         "Alt": "23",
         "Space": "24"
     },
