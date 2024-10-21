@@ -28,11 +28,11 @@ export abstract class Keyboards {
       case Keyboards.default_vertical:
         return DefaultVertical
       case Keyboards.default_horizontal_cromatic:
-        return new DefaultHorizontalInterval({interval: 5, division: 6, step: -4})
+        return new DefaultHorizontalInterval({division: 6, step: -19})
       case Keyboards.default_horizontal_interval_7:
-        return new DefaultHorizontalInterval({interval: 7})
+        return new DefaultHorizontalInterval({tuning: {1: 35, 2: 28, 3: 21, 4: 14, 5: 6}})
       case Keyboards.default_horizontal_interval_5:
-        return new DefaultHorizontalInterval({interval: 5})
+        return new DefaultHorizontalInterval()
       case Keyboards.guitar_eadgbe:
         return new GuitarArm()
       case Keyboards.guitar_dadgbe:
