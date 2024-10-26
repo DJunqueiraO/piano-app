@@ -105,8 +105,8 @@ export function Main() {
             'ArrowLeft': back,
             'y': next,
             'ArrowRight': next,
-            'PageUp': () => tone(1 + (altKey? 12 : 0)),
-            'PageDown': () => tone(-(1 + (altKey? 12 : 0)))
+            'PageUp': () => tone(1 + (altKey? 11 : 0)),
+            'PageDown': () => tone(-(1 + (altKey? 11 : 0)))
         }
         const refresh = () => {
             event.preventDefault()

@@ -30,7 +30,7 @@ export abstract class Keyboards {
       case Keyboards.default_horizontal_cromatic:
         return new DefaultHorizontalInterval({division: 6, step: -19})
       case Keyboards.default_horizontal_interval_7:
-        return new DefaultHorizontalInterval({tuning: {1: 35, 2: 28, 3: 21, 4: 14, 5: 6}})
+        return new DefaultHorizontalInterval({tuning: {1: 37, 2: 28, 3: 21, 4: 14, 5: 6}})
       case Keyboards.default_horizontal_interval_5:
         return new DefaultHorizontalInterval()
       case Keyboards.guitar_eadgbe:

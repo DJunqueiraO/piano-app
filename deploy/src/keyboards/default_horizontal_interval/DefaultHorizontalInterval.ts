@@ -23,7 +23,7 @@ export class DefaultHorizontalInterval {
     this.notes = keyboard_horizontal_interval.keys.reduce<Record<string, string>>(
       (keys, key, row_index) => {
 
-        const tuning: Tuning = {...{1: 25, 2: 20, 3: 15, 4: 10, 5: 4, 6: 0}, ...props?.tuning}
+        const tuning: Tuning = {...{1: 27, 2: 20, 3: 15, 4: 10, 5: 4, 6: 0}, ...props?.tuning}
 
         key.forEach(($0, column_index) => {
           let row_interval = tuning[(row_index + 1) as keyof typeof tuning] || 0
