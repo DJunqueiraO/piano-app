@@ -1,6 +1,6 @@
 import { Button, Div, DivProps, Input, Label, MinusButton, PlusButton, Span } from '../../../components/Components'
 import { Note, KeyboardProps, PlayMode } from '../../../models/Models'
-import { ClearButtons, midiToJson } from '../../../utils/Utils'
+import { ClearButtons, download, midiToJson } from '../../../utils/Utils'
 import play_modes from '../../../assets/play_modes.json'
 import './MidiPlayer.css'
 import { strings } from '../../../assets/Assets'
@@ -31,7 +31,6 @@ export function MidiPlayer(props: MidiPlayerProps) {
 
   const on_download_tab = () => {
 
-    const a = document.createElement('a')
     const play_notes = (
       props.play_notes
         ?.get()
@@ -52,12 +51,20 @@ export function MidiPlayer(props: MidiPlayerProps) {
         )
         ?.map(notes => notes.map(note => Note.get_character(note.noteNumber)))
     )
-    const blob = new Blob([JSON.stringify(play_notes)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    a.href = url
-    a.download = 'tab.json'
-    a.click()
-    URL.revokeObjectURL(url)
+    download(
+      {
+        name: 'tab.json',
+        blobParts: [JSON.stringify(play_notes)], 
+        options: { type: 'application/json' }
+      }
+    )
+    download(
+      {
+        name: 'play_notes.json',
+        blobParts: [JSON.stringify(props.play_notes?.get())], 
+        options: { type: 'application/json' }
+      }
+    )
   }
 
   const play_mode_o_click = (mode: PlayMode) => {

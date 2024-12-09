@@ -18,6 +18,9 @@ export const AnimateKeyButton = (
     delay_class = 'KeyButtonLastNote'
   }: AnimateKeyButtonProps
 ) => {
+  if(key === ' ') {
+    return []
+  }
   let buttons = Array.from(document.getElementsByClassName(
       `KeyButton${code || NaN}`
   ) as HTMLCollectionOf<HTMLButtonElement>)
