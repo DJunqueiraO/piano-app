@@ -94,7 +94,6 @@ export function MidiPlayer(props: MidiPlayerProps) {
       <Input 
         id="InputFile"
         type="file" 
-        accept=".mid,.midi" 
         onChange={on_file_change}/>
       <Label 
         className='UploadButton'
