@@ -1,3 +1,5 @@
+import json
+
 import webview
 from webview.dom import DOMEventHandler
 import os
@@ -21,13 +23,13 @@ class Index:
     def get_title(self) -> str:
         return self.get_beautifulsoup().find('title').text
 
-def bind(window: webview.Window):
+def bind(window_: webview.Window):
 
     def on_click(event):
-        # print('e')
+        print(event)
         pass
 
-    window.dom.window.events.click += on_click
+    window_.dom.window.events.keydown += on_click
 
 if __name__ == '__main__':
 
