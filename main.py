@@ -29,6 +29,7 @@ def bind(window_: webview.Window):
         print(event)
         pass
 
+    print(window.dom.get_elements('.KeyButton'))
     window_.dom.window.events.keydown += on_click
 
 if __name__ == '__main__':
