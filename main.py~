@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     webview.start(
         # bind,
-        # window,
+        window,
         private_mode=False
     )
 

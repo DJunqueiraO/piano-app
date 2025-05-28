@@ -124,11 +124,15 @@ export function Piano(props: PianoProps) {
                                 )
                             }
 
+                            const html = key_button_props.first_span_props?.dangerouslySetInnerHTML?.__html
+
                             const on_class_name = () => {
                                 return `${key_button_props.className || ''}`
                                     .concat(` KeyButton${`${key_button_props.children}`}`)
                                     .concat(` ${note > 25? 'KeyButtonRightHand' : ''}`)
+                                    .concat(` KeyButton_c${`${html}`.split('').map($0 => $0.charCodeAt(0)).join("_")}`)
                             }
+
                             return (
                                 <KeyButton 
                                     first_span_props={
