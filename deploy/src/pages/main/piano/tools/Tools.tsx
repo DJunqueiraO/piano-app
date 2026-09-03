@@ -1,11 +1,11 @@
 
-import { Div, DivProps, Option, Select, Span } from '../../../components/Components'
+import { Div, DivProps, Option } from '../../../../components/Components'
 import './Tools.css'
 import { ToolInput } from './tool_input/ToolInput'
-import instruments from '../../../assets/instruments.json'
-import { KeyboardProps } from '../../../models/Models'
-import { strings } from '../../../assets/Assets'
-import { Keyboard, Keyboards } from '../../../keyboards/Keyboards'
+import instruments from '../../../../assets/instruments.json'
+import { KeyboardProps } from '../../../../models/Models'
+import { strings } from '../../../../assets/Assets'
+import { Keyboards } from '../../../../keyboards/Keyboards'
 import { ToolsDivSelect } from './tools_div_select/ToolsDivSelect'
 
 type ToolsProps = DivProps & KeyboardProps

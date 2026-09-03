@@ -3,10 +3,10 @@ import { Piano } from "./piano/Piano";
 import './Main.css'
 import { ClearButtons, LocalStorage, useStateAsObject } from "../../utils/Utils";
 import { Div } from "../../components/Components";
-import { Tools } from "./tools/Tools";
+import { Tools } from "./piano/tools/Tools";
 import { useEffect, useMemo } from "react";
 import { Note, KeyboardProps, PlayMode } from "../../models/Models";
-import { MidiPlayer } from "./midi_player/MidiPlayer";
+import { MidiPlayer } from "./piano/midi_player/MidiPlayer";
 import { KeyboardParameters } from "../../keyboards/Keyboards";
 import { play_modes } from "../../assets/Assets";
 import { PianoAudioContext } from "../../utils/piano_audio_context/PianoAudioContext";

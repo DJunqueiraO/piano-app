@@ -3,9 +3,9 @@ import {
   Input, 
   MinusButton, 
   PlusButton
-} from "../../../../components/Components"
-import { PianoAudioContext } from "../../../../utils/piano_audio_context/PianoAudioContext"
-import { UseStateObject } from "../../../../utils/Utils"
+} from "../../../../../components/Components"
+import { PianoAudioContext } from "../../../../../utils/piano_audio_context/PianoAudioContext"
+import { UseStateObject } from "../../../../../utils/Utils"
 
 import './MidiPlayerInput.css'
 

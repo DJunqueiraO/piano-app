@@ -1,5 +1,16 @@
 .Select {
-  background-color: black;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #000 !important;
+  color: #fff !important;
+
   font-weight: bold;
-  color: white;
+  padding: 8px 12px;
+}
+
+.Select option {
+  background-color: #000 !important;
+  color: #fff !important;
 }

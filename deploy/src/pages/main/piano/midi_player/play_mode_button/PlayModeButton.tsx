@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '../../../../components/Components'
+import { Button, ButtonProps } from '../../../../../components/Components'
 
 export function PlayModeButton(props: ButtonProps) {
   return (

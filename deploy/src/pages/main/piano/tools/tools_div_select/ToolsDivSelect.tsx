@@ -1,13 +1,9 @@
-import { strings } from '../../../../assets/Assets'
 import { 
   Div, 
-  Option, 
   Select, 
-  SelectProps, 
-  Span 
-} from '../../../../components/Components'
-import { Keyboards } from '../../../../keyboards/Keyboards'
-import { KeyboardProps } from '../../../../models/Models'
+  SelectProps
+} from '../../../../../components/Components'
+import { KeyboardProps } from '../../../../../models/Models'
 import './ToolsDivSelect.css'
 
 export type ToolsDivSelectProps = React.HTMLAttributes<HTMLDivElement> & KeyboardProps & {

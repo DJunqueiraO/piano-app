@@ -3,3 +3,6 @@ BeautifulSoup4
 sounddevice
 numpy
 keyboard
+qtpy
+pycairo
+PyGObject

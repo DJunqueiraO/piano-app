@@ -1,7 +1,11 @@
 import time
 
 import webview
+import os
 from bs4 import BeautifulSoup
+
+os.environ["WEBKIT_DISABLE_DMABUF_RENDERER"] = "1"
+os.environ["PYWEBVIEW_GUI"] = "gtk"
 
 class Index:
 
@@ -48,6 +52,7 @@ if __name__ == '__main__':
     webview.start(
         # bind,
         # window,
-        private_mode=False
+        private_mode=False,
+        icon='deploy/public/icon.png'
     )
 

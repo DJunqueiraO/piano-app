@@ -1,9 +1,9 @@
-import { Input, InputProps } from '../../../../components/Components'
-import { PianoAudioContext } from '../../../../utils/piano_audio_context/PianoAudioContext'
+import { Input, InputProps } from '../../../../../components/Components'
+import { PianoAudioContext } from '../../../../../utils/piano_audio_context/PianoAudioContext'
 import './CurrentNoteInput.css'
-import { ClearButtons, useStateAsObject, UseStateObject } from '../../../../utils/Utils'
-import { KeyboardProps, Note, PlayMode } from '../../../../models/Models'
-import { play_modes } from '../../../../assets/Assets'
+import { ClearButtons, useStateAsObject, UseStateObject } from '../../../../../utils/Utils'
+import { KeyboardProps, Note, PlayMode } from '../../../../../models/Models'
+import { play_modes } from '../../../../../assets/Assets'
 
 export type CurrentNoteInputProps = KeyboardProps & InputProps
 
